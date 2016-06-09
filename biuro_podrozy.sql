@@ -1,9 +1,9 @@
 -- Projekt Bazy danych --
 
--- Dariusz Szyszlak		--
--- MAriusz Grochowski	--
+-- Mariusz Grochowski		--
 -- Szymon Matysik 		--
 -- Tomasz Mazur			--
+-- Dariusz Szyszlak		--
 
 -- Baza danych--
 -- Biuro podróży--
@@ -20,7 +20,6 @@ CREATE TABLE klient (
 	imie varchar(20) NOT NULL,
 	nazwisko varchar(20) NOT NULL,
 	adres varchar(25) NOT NULL
-
 );
 
 -- Struktura tabeli  TERMIN --
