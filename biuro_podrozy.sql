@@ -1,9 +1,9 @@
 -- Projekt Bazy danych --
 
--- Dariusz Szyszlak		--
--- MAriusz Grochowski	--
+-- Mariusz Grochowski		--
 -- Szymon Matysik 		--
 -- Tomasz Mazur			--
+-- Dariusz Szyszlak		--
 
 -- Baza danych--
 -- Biuro podróży--
