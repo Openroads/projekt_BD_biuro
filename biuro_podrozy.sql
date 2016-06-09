@@ -107,7 +107,20 @@ CREATE TABLE zakup_termin(
 
 INSERT INTO klient (pesel,imie,nazwisko,adres) VALUES
 ('92041507890',"Mariusz","Grochowski","Kraków Mickiewicza 33/3"),
+('95121205658',"Stefan","Kerr","Wrocław Konopnickiej 13/7");
 ('90101202341',"Jan","Nowy","Warszawa Warszawska 12b/4");
+('93013005992',"Katarzyna","Eckel","Koło Krakowska 21");
+('87022204553',"Tomasz","Mazur","Nowy Sącz Limanowskiego 38");
+('96101609381',"Dariusz","Szyszlak","Łęki Dukielskie Randomowa 404");
+('89011904331',"Szymon","Matysik","Wałcz Śmieszna 1/1");
+('90071623830',"Robert","Lewandowski","Górnica Korki 1/4"),
+('95091808858',"Anna","Arwato","Poznań Symfonii 12/34");
+('91121207341',"Jerzy","Grębosz","Gdańsk Słowackiego 44a");
+('78033008792',"Magda","Rynkowska","Piła Klęczyny 111/2");
+('88427204853',"Kinga","Matysik","Wałcz Śmieszna 1/1");
+('95111698381',"Martyna","Mazur","Nowy Sącz Limanowskiego 38");
+('96093008834',"Agnieszka","Grochowska","Kraków Mickiewicza 33/3");
+('84021402332',"Weronika","Szyszlak","Łęki Dukielskie Randomowa 404");
 
 
 
