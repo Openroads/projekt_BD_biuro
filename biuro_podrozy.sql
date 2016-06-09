@@ -104,7 +104,6 @@ CREATE TABLE zakup_termin(
 
 
 -- Dane dla tabeli KLIENT -- 
-
 INSERT INTO klient (pesel,imie,nazwisko,adres) VALUES
 ('92041507890',"Mariusz","Grochowski","Kraków Mickiewicza 33/3"),
 ('95121205658',"Stefan","Kerr","Wrocław Konopnickiej 13/7"),
@@ -129,7 +128,7 @@ INSERT INTO nocleg(nazwa,rodzaj,wyzywienie,cena,adres) VALUES
 ("Hotel pod Budą ","Hotel","Sniadanie",200.30,"Kraków Pradnicka 54"),
 ("Hotel po ","bled","bd",200.30,"Kraków Pradnicka 54");
 
-
+-- Dane dla tabeli oferta --
 INSERT INTO oferta(numerOferty,nazwa,skad,dokad,srodekTransportu,rodzaj) VALUES
 ("0001", "Wycieczka dookoła Świata", "Kraków", "Kraków", "Kajak", "Full Board");
 
