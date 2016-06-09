@@ -44,7 +44,7 @@ CREATE TABLE oferta(
 	skad varchar(10) NOT NULL,
 	dokad varchar(10) NOT NULL,
 	srodekTransportu varchar(15) NOT NULL,
-	rodzaj ENUM('Normal','Bed & Breakast','Half Board','Full Board','All Inclusive') NOT NULL,
+	rodzaj ENUM('Normal','Bed & Breakfast','Half Board','Full Board','All Inclusive') NOT NULL,
 
 	PRIMARY KEY(numerOferty)
 );
@@ -126,10 +126,26 @@ INSERT INTO klient (pesel,imie,nazwisko,adres) VALUES
 -- Dane dla tabeli nocleg --
 INSERT INTO nocleg(nazwa,rodzaj,wyzywienie,cena,adres) VALUES
 ("Hotel pod Budą ","Hotel","Sniadanie",200.30,"Kraków Pradnicka 54"),
-("Hotel po ","bled","bd",200.30,"Kraków Pradnicka 54");
+("Chatka malenka ","Hostel","Bez wyżywienia",150.50,"Kraków Pradnicka 54");
 
 -- Dane dla tabeli oferta --
 INSERT INTO oferta(numerOferty,nazwa,skad,dokad,srodekTransportu,rodzaj) VALUES
-("0001", "Wycieczka dookoła Świata", "Kraków", "Kraków", "Kajak", "Full Board");
+(0001, "Wycieczka dookoła Świata", "Kraków", "Kraków", "Kajak", "Full Board"),
+(0002, "Gorące Karaiby - Spełnienie marzeń...", "Gdańsk", "Karaiby", "Samolot", "All Inclusive"),
+(0003, "Tropikalne Kongo - Postaw stopę w świecie wiecznej zieleni.", "Warszawa", "Kinszasa", "Pociąg", "All Inclusive"),
+(0004, "Antyczne Włochy - Tropem wielkich podbojów antycznej Europy.", "Poznań", "Rzym", "Autobus", "Half Board"),
+(0005, "Korea Północna - Ostatnie życzenie.", "Zamość", "Pjongjang", "Pociąg", "Bed & Breakfast"),
+(0006, "Wielki Kanion - USA", "Kraków", "Nowy Jork", "Prom", "Bed & Breakfast");
+
+
+
+INSERT INTO termin (dataWyjazdu, dataPowrotu, miejsce, cena, numerOferty) VALUES
+('2016-07-01', '2016-07-08', "Pjongjang", 650.50, 0005),
+('2016-07-05', '2016-07-19', "Rzym", 725.99, 0004),
+('2016-07-06', '2016-09-12', "Kraków", 1625.99, 0001),
+('2016-07-11', '2016-07-21', "Karaiby", 660.45, 0002),
+('2016-08-04', '2016-08-18', "Karaiby", 750.80, 0002),
+('2016-08-24', '2016-08-31', "Nowy Jork", 680.80, 0006),
+('2016-09-02', '2016-09-09', "Nowy Jork", 613.50, 0006);
 
 
