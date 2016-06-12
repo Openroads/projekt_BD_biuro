@@ -66,7 +66,7 @@ CREATE TABLE termin(
 -- Struktura tabeli  ZAKUP --
 
 CREATE TABLE zakup(
-	numerZakupu int(4) NOT NULL,
+	numerZakupu int(4) NOT NULL AUTO_INCREMENT,
 	suma decimal(10,2) NOT NULL,
 	pesel char(11) NOT NULL,
 
@@ -90,7 +90,7 @@ CREATE TABLE typOferty(
 
 -- Struktura tabeli  ZAKUP TERMIN --
 
-CREATE TABLE zakup_termin(
+CREATE TABLE zakupTermin(
 	numerZakupu int(4) NOT NULL,
 	numerOferty int(4) NOT NULL,
 	dataWyjazdu date NOT NULL,
@@ -125,8 +125,11 @@ INSERT INTO klient (pesel,imie,nazwisko,adres) VALUES
 
 -- Dane dla tabeli nocleg --
 INSERT INTO nocleg(nazwa,rodzaj,wyzywienie,cena,adres) VALUES
-("Hotel pod Budą ","Hotel","Sniadanie",200.30,"Kraków Pradnicka 54"),
-("Chatka malenka ","Hostel","Bez wyżywienia",150.50,"Kraków Pradnicka 54");
+("Hotel pod Budą","Hotel","Sniadanie",200.30,"Kraków Pradnicka 54"),
+("Domek Janka","Hostel","Bez wyżywienia",150.50,"Kraków Pradnicka 54"),
+("Exclusive hotel","Hotel","Sniadanie",450.50,"Warszawa Pradnicka 54"),
+("Willa maks","Willa","Sniadanie + Obiad",150.50,"Tokio Huaguwai 224"),
+("Chatka malenka","Hostel","Bez wyżywienia",190.50,"Berlin Frusen 14");
 
 -- Dane dla tabeli oferta --
 INSERT INTO oferta(numerOferty,nazwa,skad,dokad,srodekTransportu,rodzaj) VALUES
@@ -138,6 +141,7 @@ INSERT INTO oferta(numerOferty,nazwa,skad,dokad,srodekTransportu,rodzaj) VALUES
 (0006, "Wielki Kanion - USA", "Kraków", "Nowy Jork", "Prom", "Bed & Breakfast");
 
 
+-- Dane dla tabeli termin --
 
 INSERT INTO termin (dataWyjazdu, dataPowrotu, miejsce, cena, numerOferty) VALUES
 ('2016-07-01', '2016-07-08', "Pjongjang", 650.50, 0005),
@@ -149,3 +153,20 @@ INSERT INTO termin (dataWyjazdu, dataPowrotu, miejsce, cena, numerOferty) VALUES
 ('2016-09-02', '2016-09-09', "Nowy Jork", 613.50, 0006);
 
 
+DELIMITER //
+CREATE PROCEDURE dokonaj_zakupu(numerOferty int(4),nazwaNoclegu varchar(30), dataWyj date,pesel char(11))
+BEGIN
+	set @cenaNoclegu = (select cena from nocleg where nocleg.nazwa = nazwaNoclegu);
+	set @cenaTerminu = (select cena from termin where termin.dataWyjazdu = dataWyj);
+	set @suma = @cenaTerminu+@cenaNoclegu;
+
+	INSERT INTO zakup(pesel,suma) VALUES (pesel,@suma);
+
+	set @numerZ = (select numerZakupu from zakup where zakup.pesel = pesel);
+
+	INSERT INTO typOferty	VALUES
+	(numerOferty,@numerZ,nazwaNoclegu);
+	INSERT INTO zakupTermin values
+	(@numerZ,numerOferty,dataWyj);
+END // 
+DELIMITER ;
