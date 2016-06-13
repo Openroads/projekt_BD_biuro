@@ -1,18 +1,181 @@
+<?php
+	session_start();
+
+	if(isset($_POST['Pesel']))
+	{
+		$flag = true;
+
+		$pesel = $_POST['Pesel'];
+		if(strlen($pesel) !=11)
+		{
+			$flag = false;
+			$_SESSION['errPesel']="Nieprawidłowa dlugość peselu";
+		}
+		if(!is_numeric($pesel))
+		{
+			$flag=false;
+			$_SESSION['errPesel']="Nieprawidłowa wartosc peselu";
+		}
+		if(strlen($_POST['Imie'])<2)
+		{
+			$flag=false;
+			$_SESSION['errImie']="Imie jest za krótkie";
+		}
+		if(strlen($_POST['Nazwisko'])<2)
+		{
+			$flag=false;
+			$_SESSION['errNazwisko']="Nazwisko jest za krótkie";
+		}
+		if(strlen($_POST['Adres'])<2)
+		{
+			$flag=false;
+			$_SESSION['errAdres']="Adres jest za krótki";
+		}
+		if(!isset($_POST['Regulamin']))
+		{
+			$flag=false;
+			$_SESSION['errRegulamin'] = "Zatwierdzenie regulaminu jest obowiązkowe";
+		}
+
+		
+
+
+		if($flag ==true )
+		{
+
+			//sprawdzenie czy uzytkownik o takim peselu jest w bazie 
+			require_once "danebazy.php";
+
+			try
+			{
+					$connect = new mysqli($server_adress,$db_user,$db_password,$db_name);
+					mysqli_report(MYSQLI_REPORT_STRICT);
+					$connect->query('SET NAMES utf8');
+
+					if($connect->errno)
+					{
+							throw new Exception(mysqli_connect_errno());
+					}
+
+					else
+					{
+
+						$pesel 		= 	$_POST['Pesel'];
+						$imie 		=  	$_POST['Imie'];
+						$nazwisko 	= 	$_POST['Nazwisko'];
+						$adres 		= 	$_POST['Adres'];
+
+						$klient_query ="SELECT * from klient where pesel='$pesel'";
+						
+						$result = $connect->query($klient_query);
+
+						if($result!=false)
+						{
+							$klient = $result->fetch_array();
+							if($result->num_rows > 0 && $imie ==$klient['imie'] && $nazwisko ==$klient['nazwisko'] && $adres==$klient['adres'])
+							{
+								//przekieruj na strone zarezerwuj php z danymi klienta
+								header('Location: http://localhost/projekt_BD_biuro/zarezerwuj.php');
+								exit;
+						
+							}else
+							{
+
+								$insert_client ="INSERT INTO klient VALUES ('{$_POST["Pesel"]}','{$_POST["Imie"]}','{$_POST["Nazwisko"]}','{$_POST["Adres"]}')";
+								if($connect->query($insert_client))
+								{
+										////przekieruj na strone zarezerwuj php z danymi klienta
+								header('Location: http://localhost/projekt_BD_biuro/zarezerwuj.php');
+								exit;
+								}
+								else
+								{
+									throw new Exception($connect->error);
+								}
+								
+							}
+							$result->free();
+						}else
+						{
+							throw new Exception($connect->error);
+						}
+
+
+						$connect->close();
+					}
+			}
+			catch(Exception $ex)
+			{
+				echo "Blad podczas połączenia z serwerem".$ex;
+			}
+	
+		}
+
+	}
+?>
+
 <!DOCTYPE HTML>
 <html lang="pl">
 <head>
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 		<title>Wprowadź dane</title>
+		<style>
+		.error
+		{
+			color:red;
+			margin: 5px;
+		}
+		</style>
 </head>
 <body>
 
-	<form action="zarezerwuj.php" method="post">
+	<form method="post">
 	<h3> Wprowadz swoje dane						</h3>
-	Pesel 		<input type="text" name="Pesel" 	size=30>	</br>
-	Imie 		<input type="text" name="Imie" 		size=30>	</br>
-	Nazwisko	<input type="text" name="Nazwisko" 	size=30>	</br>
-	Adres 		<input type="text" name="Adres" 	size=30>	</br>
+	
+	Pesel 		</br>
+	<input type="text" name="Pesel" 	size=30>	</br>
+	<?php
+	if(isset($_SESSION['errPesel']))
+	{
+		echo '<div class="error">'.$_SESSION['errPesel'].'</div>'."</br>";
+		unset($_SESSION['errPesel']);
+	}
+	?>
+	
+	Imie 		</br>
+	<input type="text" name="Imie" 		size=30>	</br>
+	
+	Nazwisko	</br>
+	<input type="text" name="Nazwisko" 	size=30>	</br>
+	<?php
+	if(isset($_SESSION['errNazwisko']))
+	{
+		echo '<div class="error">'.$_SESSION['errNazwisko'].'</div>'."</br>";
+		unset($_SESSION['errNazwisko']);
+	}
+	?>
+
+	Adres 		</br>
+	<input type="text" name="Adres" 	size=30>	</br>
+		<?php
+	if(isset($_SESSION['errAdres']))
+	{
+		echo '<div class="error">'.$_SESSION['errAdres'].'</div>'."</br>";
+		unset($_SESSION['errAdres']);
+	}
+	?>
+
+
+	<input type="checkbox" name="Regulamin"/> <a href="regulamin.pdf" download> Akceptuje regulamin </a></br>
+	<?php
+	if(isset($_SESSION['errRegulamin']))
+	{
+		echo '<div class="error">'.$_SESSION['errRegulamin'].'</div>'."</br>";
+		unset($_SESSION['errRegulamin']);
+	}
+	?>
+
 	<input type="submit" name="dod" value="Dalej">	</br>
 	
 	</form>
