@@ -79,12 +79,10 @@ CREATE TABLE zakup(
 
 CREATE TABLE typOferty(
 	numerOferty int(4) NOT NULL,
-	numerZakupu int(4) NOT NULL,
 	nazwa varchar(30) NOT NULL,
-	PRIMARY KEY(numerZakupu,numerOferty,nazwa),
+	PRIMARY KEY(numerOferty,nazwa),
 
 	CONSTRAINT fk_oferta_nrOferty_to FOREIGN KEY(numerOferty) REFERENCES oferta(numerOferty) ON UPDATE CASCADE ON DELETE RESTRICT,
-	CONSTRAINT fk_zakup_nrZakupu_to FOREIGN KEY(numerZakupu) REFERENCES zakup(numerZakupu ) ON UPDATE CASCADE ON DELETE RESTRICT,
 	CONSTRAINT fk_nazwa_nocleg_to FOREIGN KEY(nazwa) REFERENCES nocleg(nazwa) ON UPDATE CASCADE ON DELETE RESTRICT
 );
 
@@ -99,6 +97,16 @@ CREATE TABLE zakupTermin(
 	CONSTRAINT fk_oferta_nrOferty_zt FOREIGN KEY(numerOferty) REFERENCES oferta(numerOferty) ON UPDATE CASCADE ON DELETE RESTRICT,
 	CONSTRAINT fk_zakup_nrZakupu_zt FOREIGN KEY(numerZakupu) REFERENCES zakup(numerZakupu ) ON UPDATE CASCADE ON DELETE RESTRICT,
 	CONSTRAINT fk_termin_dataWyjazdu_zt  FOREIGN KEY(dataWyjazdu) REFERENCES termin(dataWyjazdu) ON UPDATE RESTRICT ON DELETE RESTRICT
+);
+
+CREATE TABLE zakupTypOferty(
+	numerZakupu int(4) NOT NULL,
+	numerOferty int(4) NOT NULL,
+	nazwa varchar(30) NOT NULL,
+
+	CONSTRAINT fk_oferta_nrOferty_zto FOREIGN KEY(numerOferty) REFERENCES oferta(numerOferty) ON UPDATE CASCADE ON DELETE RESTRICT,
+	CONSTRAINT fk_zakup_nrZakupu_zto FOREIGN KEY(numerZakupu) REFERENCES zakup(numerZakupu ) ON UPDATE CASCADE ON DELETE RESTRICT,
+	CONSTRAINT fk_nazwa_nocleg_zto FOREIGN KEY(nazwa) REFERENCES nocleg(nazwa) ON UPDATE CASCADE ON DELETE RESTRICT
 );
 
 
@@ -125,11 +133,11 @@ INSERT INTO klient (pesel,imie,nazwisko,adres) VALUES
 
 -- Dane dla tabeli nocleg --
 INSERT INTO nocleg(nazwa,rodzaj,wyzywienie,cena,adres) VALUES
-("Hotel pod Budą","Hotel","Sniadanie",200.30,"Kraków Pradnicka 54"),
-("Domek Janka","Hostel","Bez wyżywienia",150.50,"Kraków Pradnicka 54"),
-("Exclusive hotel","Hotel","Sniadanie",450.50,"Warszawa Pradnicka 54"),
+("Hotel pod Budą","Hotel","Sniadanie",200.30,"Kraków ul.Pradnicka 54"),
+("Domek Janka","Hostel","Bez wyżywienia",150.50,"Kraków ul.Pradnicka 54"),
+("Exclusive hotel","Hotel","Sniadanie",450.50,"Rzym ul.Peccioli 18"),
 ("Willa maks","Willa","Sniadanie + Obiad",150.50,"Tokio Huaguwai 224"),
-("Chatka malenka","Hostel","Bez wyżywienia",190.50,"Berlin Frusen 14");
+("작은 오두막","Hostel","Bez wyżywienia",190.50,"Pjongjang ul.Aessong 14");
 
 -- Dane dla tabeli oferta --
 INSERT INTO oferta(numerOferty,nazwa,skad,dokad,srodekTransportu,rodzaj) VALUES
@@ -151,6 +159,13 @@ INSERT INTO termin (dataWyjazdu, dataPowrotu, miejsce, cena, numerOferty) VALUES
 ('2016-08-04', '2016-08-18', "Karaiby", 750.80, 0002),
 ('2016-08-24', '2016-08-31', "Nowy Jork", 680.80, 0006),
 ('2016-09-02', '2016-09-09', "Nowy Jork", 613.50, 0006);
+
+--	Dane dla tebli typOferty --
+
+INSERT INTO typOferty (numerOferty,nazwa) VALUES
+(0001,"Hotel pod Budą"),
+(0004,"Exclusive hotel"),
+(0005,"작은 오두막"); 
 
 
 DELIMITER //

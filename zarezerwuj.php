@@ -15,20 +15,46 @@
 		<title>Zarezerwuj wyjazd !</title>
 </head>
 <body>
-
 <?php
 	require_once "danebazy.php";
-	$connect = new mysqli($server_adress,$db_user,$db_password,$db_name);
-	$connect->query('SET NAMES utf8');
+	if (!isset($_GET['wybierz'])) {
+		$connect = new mysqli($server_adress,$db_user,$db_password,$db_name);
+		$connect->query('SET NAMES utf8');
+		$pesel 		= $_SESSION['pesel'];
+		$imie 		= $_SESSION['imie'];
+		$nazwisko	= $_SESSION['nazwisko'];
+		echo "<p>"."Witaj  ".$imie." ".$nazwisko."</p>";
+		echo "<h5>"."Wybierz termin :"."</h5>" ;
+		$resultOf = $connect->query('Select * from termin');
+		if( $resultOf !=false) {
+			$contents = "<table>";
+			while($termin = $resultOf->fetch_array()) {
+				$contents = $contents."<tr>"."<td>".$termin['dataWyjazdu']."</td>"."<td>".$termin['dataPowrotu']."</td>"."<td>".$termin['miejsce']."<td>".$termin['cena'].
+					"</td>"."<td>".$termin['numerOferty']."</td>"."<td>"."<form action = \"zarezerwuj.php\" method= \"get\"><input type = \"submit\" name=\"wybierz\" value=\"".$termin['numerOferty']."\"></form>"."</td>"."</tr>";		
+			}
+			$contents =$contents."</table>";	
+			echo  $contents;
+			$resultOf->free();
+		}
+		$connect->close();
+	} else {
+		$numerOferty = $_GET['wybierz'];
+		$connect = new mysqli($server_adress,$db_user,$db_password,$db_name);
+		$connect->query('SET NAMES utf8');
+		$resultOf = $connect->query("SELECT * FROM typoferty, nocleg WHERE typoferty.nazwa = nocleg.nazwa and typoferty.numerOferty ='$numerOferty'");
+		if( $resultOf !=false) {
+			$contents = "<table>";
+			while($nocleg = $resultOf->fetch_array()) {
+				$contents = $contents."<tr>"."<td>".$nocleg['nazwa']."</td>"."<td>".$nocleg['rodzaj']."</td>"."<td>".$nocleg['wyzywienie']."<td>".$nocleg['cena'].
+					"</td>"."<td>".$nocleg['adres']."</td>"."</tr>";		
+			}
+			$contents =$contents."</table>";	
+			echo  $contents;
+			$resultOf->free();
+		}
+		$connect->close();
+	}
 	
-	$pesel 		= $_SESSION['pesel'];
-	$imie 		= $_SESSION['imie'];
-	$nazwisko	= $_SESSION['nazwisko'];
-
-
-	echo "<p>"."Witaj  ".$imie." ".$nazwisko."</p>";
-	echo "<h5>"."Wybierz termin :"."</h5>" 
-
 	/*wyswietlanie najpierw terminow z ofertami.. po wybraniu terminu (z jedna dostenpna oferta) pojawienie sie dostepnych noclegow dla oferty*/
 ?>
 
