@@ -15,7 +15,7 @@
 		if(!is_numeric($pesel))
 		{
 			$flag=false;
-			$_SESSION['errPesel']="Nieprawidłowa wartosc peselu";
+			$_SESSION['errPesel']="Nieprawidłowy pesel - tylko liczby";
 		}
 		if(strlen($_POST['imie'])<2)
 		{
@@ -81,7 +81,7 @@
 							}else if($result->num_rows==0)
 							{
 
-								$insert_client ="INSERT INTO klient VALUES ('{$_POST["Pesel"]}','{$_POST["Imie"]}','{$_POST["Nazwisko"]}','{$_POST["Adres"]}')";
+								$insert_client ="INSERT INTO klient VALUES ('{$_POST["pesel"]}','{$_POST["imie"]}','{$_POST["nazwisko"]}','{$_POST["adres"]}')";
 								if($connect->query($insert_client))
 								{
 										////przekieruj na strone zarezerwuj php z danymi klienta
