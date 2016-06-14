@@ -149,7 +149,7 @@
         <div id="new">
         <center>
         <form method="post">
-	<h3> Wprowadz swoje dane						</h3>
+	<h3> Wprowadź swoje dane						</h3>
 	
 	Pesel 		</br>
 	<input type="text" value="<?php
@@ -166,7 +166,7 @@
 		}
 		?>
 	
-	Imie 		</br>
+	Imię 		</br>
 	<input type="text" value="<?php
 			if(isset($_POST['imie']))
 			{
@@ -212,7 +212,7 @@
 		?>
 
 
-	<input type="checkbox" name="Regulamin"/> <a href="regulamin.pdf" download> Akceptuje regulamin </a></br>
+	<input type="checkbox" name="Regulamin"/> <a href="regulamin.pdf" download> Akceptuję regulamin </a></br>
 	<?php
 	if(isset($_SESSION['errRegulamin']))
 	{
