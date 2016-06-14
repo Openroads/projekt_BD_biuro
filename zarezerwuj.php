@@ -41,7 +41,7 @@
 		$numerOferty = $_GET['wybierz'];
 		$connect = new mysqli($server_adress,$db_user,$db_password,$db_name);
 		$connect->query('SET NAMES utf8');
-		$resultOf = $connect->query("SELECT * FROM typoferty, nocleg WHERE typoferty.nazwa = nocleg.nazwa and typoferty.numerOferty ='$numerOferty'");
+		$resultOf = $connect->query("SELECT * FROM typOferty, nocleg WHERE typOferty.nazwa = nocleg.nazwa and typOferty.numerOferty ='$numerOferty'");
 		if( $resultOf !=false) {
 			$contents = "<table>";
 			while($nocleg = $resultOf->fetch_array()) {

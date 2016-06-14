@@ -179,9 +179,11 @@ BEGIN
 
 	set @numerZ = (select numerZakupu from zakup where zakup.pesel = pesel);
 
-	INSERT INTO typOferty	VALUES
-	(numerOferty,@numerZ,nazwaNoclegu);
 	INSERT INTO zakupTermin values
 	(@numerZ,numerOferty,dataWyj);
+
+	INSERT INTO typOferty	VALUES
+	(numerOferty,nazwaNoclegu);
+	
 END // 
 DELIMITER ;
