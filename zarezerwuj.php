@@ -17,7 +17,7 @@
 <body>
 <?php
 	require_once "danebazy.php";
-	 $numerOferty; 
+	 
 	if (!isset($_GET['wybierz'])) {
 		$connect = new mysqli($server_adress,$db_user,$db_password,$db_name);
 		$connect->query('SET NAMES utf8');
@@ -40,7 +40,7 @@
 		$connect->close();
 		
 	} else {
-		global $numerOferty;
+		
 		$numerOferty = $_GET['wybierz'];
 		$_SESSION['nrOferty'] = $_GET['wybierz'];
 		$connect = new mysqli($server_adress,$db_user,$db_password,$db_name);
@@ -64,14 +64,12 @@
 		
 		
 		$nazwa  = $_GET['wybierz2'];
-		global $numerOferty;
-		$suma=0;
+		$_SESSION['nazwa'];
+		$_SESSION['wyjazd'];
 		$numerOferty = $_SESSION['nrOferty'];
 		$connect = new mysqli($server_adress,$db_user,$db_password,$db_name);
 		$connect->query('SET NAMES utf8');
 		$result1 = $connect->query("SELECT * FROM nocleg WHERE nazwa= '$nazwa'");
-		$_SESSION['nazwa'];
-		$_SESSION['wyjazd'];
 		echo "<h5>"."Wybrales: "."</h5>" ;
 		if( $result1 !=false) {
 			$contents = "<table>";
@@ -101,7 +99,7 @@
 		
 		 echo "<form action=\"zarezerwuj.php\" method= \"get\"><input type=\"submit\" name=\"zatwierdz\" value=\"zatwierdz\"></form>";
 		 if(isset($_GET['zatwierdz']))
-			/* $resultat=$connect->query("CALL dokonaj_zakupu('$numerOferty','$_SESSION['nazwa']','$_SESSION['wyjazd']','$_SESSION['pesel']')"); WYRZUCA BLAD*/ 
+			/* $result=$connect->query("CALL dokonaj_zakupu('$numerOferty','$_SESSION['nazwa']','$_SESSION['wyjazd']','$_SESSION['pesel']')"); WYRZUCA BLAD*/ 
 		$connect->close(); 
 	}
 	//echo $numerOferty;
