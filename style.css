@@ -87,6 +87,7 @@ a:hover {
 
 #middle {
     height: 1%;
+	marigin: 0px auto;
     padding: 378px 40px 39px 40px;
     background: #1C1E20 url(images/image.jpg) no-repeat;
 }

@@ -28,47 +28,13 @@
         </div>
         <div id="new">
         <center>
-          
-<?php
-	require_once "danebazy.php";
-
-	$connect = new mysqli($server_adress,$db_user,$db_password,$db_name);
-	$connect->query('SET NAMES utf8');
-	if($connect->errno)
-	{
-		echo $connect->connect_errno;
-	}
-	else{
-		$oferty_query ="SELECT * from oferta";
-		
-		$result = $connect->query($oferty_query);
-
-		if($result!=false)
-		{
-			$contents = "<table>";
-			while($oferta = $result->fetch_array())
-			{
-				$contents = $contents."<tr>"."<td>".$oferta['nazwa']."</td>"."<td>".$oferta['skad']."<td>".$oferta['dokad'].
-				"</td>"."<td>".$oferta['srodekTransportu']."</td>"."<td>".$oferta['rodzaj']."</td>"."</tr>";
-
-
-				/*echo "<table><tr>".$oferta['nazwa']."Z ".
-				$oferta['skad']."	Do ".$oferta['dokad']."Srodek transportu ".$oferta['srodekTransportu']."Rodzaj oferty ".$oferta['rodzaj']."</table>";*/
-			}
-			$contents =$contents."</table>";
-			
-			echo  $contents;
-
-			$result->free();
-		}
-
-		$connect->close();
-	}
-
-
-?>
-</center>
-<div class="clearing">&nbsp;</div>
+        <form method="post">
+	<h3> KONTAKT						</h3>
+	Mariusz Grochowski</br>
+	Szymon Matysik</br>
+	Tomasz Mazur</br>
+	Dariusz Szyszlak</br>
+	  <div class="clearing">&nbsp;</div>
       </div>
         <div id="footer">
             <p>Copyright &copy; GMMSZ, designed by <a href="http://www.painthfolio.wordpress.com" target="_blank">PAINTHING</a></p>

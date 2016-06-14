@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Through The Woods - Free Alpha Studio Web Template</title>
+    <title>INSANE TRAVEL</title>
     <meta name="keywords" content="" />
     <meta name="description" content="" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -18,16 +18,16 @@
         </div>
         <div id="menu">
           <ul>
-                <li><a href="#">Strona GŁÓwna</a></li>
-                <li><a href="#">O NAS</a></li>
+                <li><a href="http://localhost/projekt_BD_biuro/index.html">Strona GŁÓwna</a></li>
+                <li><a href="http://localhost/projekt_BD_biuro/onas.php">O NAS</a></li>
                 <li><a href="http://localhost/projekt_BD_biuro/oferty.php">OFERTY</a></li>
                 <li><a href="http://localhost/projekt_BD_biuro/terminy.php">TERMINY</a></li>
                 <li><a href="http://localhost/projekt_BD_biuro/dane.php">ZAREZERWUJ WYJAZD</a></li>
-            <li><a href="#">KONTAKT</a></li>
+            <li><a href="http://localhost/projekt_BD_biuro/kontakt.php">KONTAKT</a></li>
             </ul>
         </div>
         <div id="new">
-          
+        </center>  
 
 
 <?php
@@ -63,7 +63,7 @@
 	}
 
 
-?>
+?><center>
 <div class="clearing">&nbsp;</div>
       </div>
         <div id="footer">
