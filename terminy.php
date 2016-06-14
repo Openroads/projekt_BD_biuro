@@ -46,9 +46,11 @@
 		if( $resultOf !=false)
 		{
 			$contents = "<table>";
+            $i=0;
 			while($oferta = $resultOf->fetch_array())
 			{
-				$contents = $contents."<tr>"."<td>".$oferta['dataWyjazdu']."</td>"."<td>".$oferta['nazwa']."</td>"."<td>".$oferta['skad']."<td>".$oferta['dokad'].
+                $i=$i+1;
+				$contents = $contents."<tr>"."<td>"."$i. "."</td>"."<td>".$oferta['dataWyjazdu']."</td>"."<td>".$oferta['nazwa']."</td>"."<td>".$oferta['skad']."<td>".$oferta['dokad'].
 				"</td>"."<td>".$oferta['srodekTransportu']."</td>"."<td>".$oferta['rodzaj']."</td>"."</tr>";
 				
 			}
