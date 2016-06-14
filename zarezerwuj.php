@@ -17,6 +17,7 @@
 <body>
 <?php
 	require_once "danebazy.php";
+	 $numerOferty; 
 	if (!isset($_GET['wybierz'])) {
 		$connect = new mysqli($server_adress,$db_user,$db_password,$db_name);
 		$connect->query('SET NAMES utf8');
@@ -35,10 +36,13 @@
 			$contents =$contents."</table>";	
 			echo  $contents;
 			$resultOf->free();
-		}
+		}	
 		$connect->close();
+		
 	} else {
+		global $numerOferty;
 		$numerOferty = $_GET['wybierz'];
+		$_SESSION['nrOferty'] = $_GET['wybierz'];
 		$connect = new mysqli($server_adress,$db_user,$db_password,$db_name);
 		$connect->query('SET NAMES utf8');
 		$resultOf = $connect->query("SELECT * FROM typOferty, nocleg WHERE typOferty.nazwa = nocleg.nazwa and typOferty.numerOferty ='$numerOferty'");
@@ -46,17 +50,63 @@
 			$contents = "<table>";
 			while($nocleg = $resultOf->fetch_array()) {
 				$contents = $contents."<tr>"."<td>".$nocleg['nazwa']."</td>"."<td>".$nocleg['rodzaj']."</td>"."<td>".$nocleg['wyzywienie']."<td>".$nocleg['cena'].
-					"</td>"."<td>".$nocleg['adres']."</td>"."</tr>";		
+					"</td>"."<td>".$nocleg['adres']."</td>"."<td>"."<form action=\"zarezerwuj.php\" method= \"get\"><input type = \"submit\" name=\"wybierz2\" value=\"".$nocleg['nazwa']."\"></form>"."</td>"."</tr>";		
 			}
 			$contents =$contents."</table>";	
 			echo  $contents;
 			$resultOf->free();
 		}
 		$connect->close();
+		
 	}
+	
+	if(isset($_GET['wybierz2'])){
+		
+		
+		$nazwa  = $_GET['wybierz2'];
+		global $numerOferty;
+		$suma=0;
+		$numerOferty = $_SESSION['nrOferty'];
+		$connect = new mysqli($server_adress,$db_user,$db_password,$db_name);
+		$connect->query('SET NAMES utf8');
+		$result1 = $connect->query("SELECT * FROM nocleg WHERE nazwa= '$nazwa'");
+		$_SESSION['nazwa'];
+		$_SESSION['wyjazd'];
+		echo "<h5>"."Wybrales: "."</h5>" ;
+		if( $result1 !=false) {
+			$contents = "<table>";
+			while($nocleg= $result1->fetch_array()) {
+				$contents = $contents."<tr>"."<td>".$nocleg['nazwa']."</td>"."<td>".$nocleg['rodzaj']."</td>"."<td>".$nocleg['wyzywienie']."<td>".$nocleg['cena'].
+					"</td>"."<td>".$nocleg['adres']."</td>"."</tr>";	
+				$_SESSION['nazwa'] += $nocleg['nazwa'];					
+			}
+		$contents =$contents."</table>";	
+			echo  $contents;
+			$result1->free();
+		
+		}
+		
+		$result2 = $connect->query("SELECT * FROM termin WHERE numerOferty= '$numerOferty'");
+		if( $result2 !=false) {
+			$contents = "<table>";
+			while($termin= $result2->fetch_array()) {
+				$contents = $contents."<tr>"."<td>".$termin['dataWyjazdu']."</td>"."<td>".$termin['dataPowrotu']."</td>"."<td>".$termin['miejsce']."<td>".$termin['cena'].
+					"</td>"."<td>".$termin['numerOferty']."</td>"."</tr>";	
+				$_SESSION['wyjazd'] += $termin['dataWyjazdu'];
+			}
+		$contents =$contents."</table>";	
+			echo  $contents;
+			$result2->free();
+		}
+		
+		 echo "<form action=\"zarezerwuj.php\" method= \"get\"><input type=\"submit\" name=\"zatwierdz\" value=\"zatwierdz\"></form>";
+		 if(isset($_GET['zatwierdz']))
+			/* $resultat=$connect->query("CALL dokonaj_zakupu('$numerOferty','$_SESSION['nazwa']','$_SESSION['wyjazd']','$_SESSION['pesel']')"); WYRZUCA BLAD*/ 
+		$connect->close(); 
+	}
+	//echo $numerOferty;
 	
 	/*wyswietlanie najpierw terminow z ofertami.. po wybraniu terminu (z jedna dostenpna oferta) pojawienie sie dostepnych noclegow dla oferty*/
 ?>
-
 </body>
 </html>
