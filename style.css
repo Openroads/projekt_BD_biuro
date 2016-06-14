@@ -89,6 +89,7 @@ a:hover {
 #menu ul li a:hover {
     text-decoration: none;
     color: #E96B39;
+	
 }
 
 #middle {
@@ -164,7 +165,7 @@ a:hover {
 #footer {
     clear: both;
     height: 104px;
-    background: url(images/footer.gif) repeat-x top;
+    background: url(images/plane.gif) no-repeat center ;
 }
 
 #footer p {
