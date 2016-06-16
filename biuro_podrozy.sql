@@ -29,8 +29,8 @@ CREATE TABLE klient (
 
 CREATE TABLE nocleg(
 	nazwa varchar(30) NOT NULL,
-	rodzaj ENUM ("Willa","Hotel","Hostel") NOT NULL, /*dorzucac swoje pomysly--*/
-	wyzywienie varchar(20) NOT NULL,	/*moze tez enuma z wyborem ze sniadaniem, obiad + sniadaanie , bez wyzywienia ? */
+	rodzaj ENUM ("Willa","Hotel","Hostel") NOT NULL,
+	wyzywienie ENUM ("Bez wyżywienia","Sniadanie","Sniadanie + obiad") NOT NULL,	
 	cena decimal(10,2) NOT NULL, 
 	adres varchar(25) NOT NULL,
 	PRIMARY KEY(nazwa)
@@ -43,8 +43,8 @@ CREATE TABLE oferta(
 	nazwa varchar(100) NOT NULL,
 	skad varchar(10) NOT NULL,
 	dokad varchar(10) NOT NULL,
-	srodekTransportu varchar(15) NOT NULL,
-	rodzaj ENUM('Normal','Bed & Breakfast','Half Board','Full Board','All Inclusive') NOT NULL,
+	srodekTransportu  ENUM ("Autobus","Pociąg","Samolot","Kajak") NOT NULL,
+	rodzaj ENUM('Normal','Bed & Breakfast','All Inclusive') NOT NULL,
 
 	PRIMARY KEY(numerOferty)
 );
@@ -60,7 +60,6 @@ CREATE TABLE termin(
 
 	PRIMARY KEY (dataWyjazdu,numerOferty),
 	CONSTRAINT fk_oferta_nrOferty FOREIGN KEY(numerOferty) REFERENCES oferta(numerOferty) ON UPDATE CASCADE ON DELETE NO ACTION
-	/* cos z keyami */
 );
 
 -- Struktura tabeli  ZAKUP --
@@ -136,7 +135,10 @@ INSERT INTO nocleg(nazwa,rodzaj,wyzywienie,cena,adres) VALUES
 ("Hotel pod Budą","Hotel","Sniadanie",200.30,"Kraków ul.Pradnicka 54"),
 ("Domek Janka","Hostel","Bez wyżywienia",150.50,"Kraków ul.Pradnicka 54"),
 ("Exclusive hotel","Hotel","Sniadanie",450.50,"Rzym ul.Peccioli 18"),
-("Willa maks","Willa","Sniadanie + Obiad",150.50,"Tokio Huaguwai 224"),
+("Dream in Rzym","Willa","Sniadanie",550.50,"Rzym ul.Wiccioli 28"),
+("Willa maks","Willa","Sniadanie + obiad",150.50,"Tokio Huaguwai 224"),
+("작은 오두막 은 오 은오","Hotel","Sniadanie",490.50,"Pjongjang ul.Besung 24"),
+("작은 오두막 은 작은","Hotel","Sniadanie + obiad",590.50,"Pjongjang ul.Tung 124"),
 ("작은 오두막","Hostel","Bez wyżywienia",190.50,"Pjongjang ul.Aessong 14");
 
 -- Dane dla tabeli oferta --
@@ -144,8 +146,8 @@ INSERT INTO oferta(numerOferty,nazwa,skad,dokad,srodekTransportu,rodzaj) VALUES
 (0001, "Wycieczka dookoła Świata", "Kraków", "Kraków", "Kajak", "Full Board"),
 (0002, "Gorące Karaiby - Spełnienie marzeń...", "Gdańsk", "Karaiby", "Samolot", "All Inclusive"),
 (0003, "Tropikalne Kongo - Postaw stopę w świecie wiecznej zieleni.", "Warszawa", "Kinszasa", "Pociąg", "All Inclusive"),
-(0004, "Antyczne Włochy - Tropem wielkich podbojów antycznej Europy.", "Poznań", "Rzym", "Autobus", "Half Board"),
-(0005, "Korea Północna - Ostatnie życzenie.", "Zamość", "Pjongjang", "Pociąg", "Bed & Breakfast"),
+(0004, "Antyczne Włochy - Tropem wielkich podbojów antycznej Europy.", "Poznań", "Rzym", "Autobus", "Bed & Breakfast"),
+(0005, "Korea Północna - Ostatnie życzenie.", "Zamość", "Pjongjang", "Pociąg", "Normal"),
 (0006, "Wielki Kanion - USA", "Kraków", "Nowy Jork", "Prom", "Bed & Breakfast");
 
 
@@ -165,25 +167,32 @@ INSERT INTO termin (dataWyjazdu, dataPowrotu, miejsce, cena, numerOferty) VALUES
 INSERT INTO typOferty (numerOferty,nazwa) VALUES
 (0001,"Hotel pod Budą"),
 (0004,"Exclusive hotel"),
+(0004,"Dream in Rzym"),
+(0005,"작은 오두막 은 작은"),
+(0005,"작은 오두막 은 오 은오"),
 (0005,"작은 오두막"); 
 
+-- Procedura obslugujaca dokonanie zakupu wycieczki przez klienta -- 
 
 DELIMITER //
 CREATE PROCEDURE dokonaj_zakupu(numerOferty int(4),nazwaNoclegu varchar(30), dataWyj date,pesel char(11))
 BEGIN
 	set @cenaNoclegu = (select cena from nocleg where nocleg.nazwa = nazwaNoclegu);
 	set @cenaTerminu = (select cena from termin where termin.dataWyjazdu = dataWyj);
+	if(@cenaTerminu is not null AND @cenaNoclegu is not null)
+	THEN
 	set @suma = @cenaTerminu+@cenaNoclegu;
 
 	INSERT INTO zakup(pesel,suma) VALUES (pesel,@suma);
 
 	set @numerZ = (select numerZakupu from zakup where zakup.pesel = pesel);
 
-	INSERT INTO zakupTermin values
+	INSERT INTO zakupTermin VALUES
 	(@numerZ,numerOferty,dataWyj);
 
-	INSERT INTO typOferty	VALUES
-	(numerOferty,nazwaNoclegu);
+	INSERT INTO zakupTypOferty VALUES
+	(@numerZ,numerOferty,nazwaNoclegu);
+	END IF;
 	
-END // 
+END //
 DELIMITER ;
