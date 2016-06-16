@@ -65,7 +65,7 @@ CREATE TABLE termin(
 -- Struktura tabeli  ZAKUP --
 
 CREATE TABLE zakup(
-	numerZakupu int(4) NOT NULL AUTO_INCREMENT,
+	numerZakupu int(4) NOT NULL,
 	suma decimal(10,2) NOT NULL,
 	pesel char(11) NOT NULL,
 
@@ -181,17 +181,21 @@ BEGIN
 	set @cenaTerminu = (select cena from termin where termin.dataWyjazdu = dataWyj);
 	if(@cenaTerminu is not null AND @cenaNoclegu is not null)
 	THEN
-	set @suma = @cenaTerminu+@cenaNoclegu;
+		set @suma = @cenaTerminu+@cenaNoclegu;
 
-	INSERT INTO zakup(pesel,suma) VALUES (pesel,@suma);
+		set @numerZ = (select max(numerZakupu) from zakup)+1;
+		IF(@numerZ is null)
+		THEN
+		 set @numerZ =1;
+		END IF;
 
-	set @numerZ = (select numerZakupu from zakup where zakup.pesel = pesel);
+		INSERT INTO zakup (numerZakupu,suma,pesel) VALUES (@numerZ,@suma,pesel);
 
-	INSERT INTO zakupTermin VALUES
-	(@numerZ,numerOferty,dataWyj);
+		INSERT INTO zakupTermin VALUES
+		(@numerZ,numerOferty,dataWyj);
 
-	INSERT INTO zakupTypOferty VALUES
-	(@numerZ,numerOferty,nazwaNoclegu);
+		INSERT INTO zakupTypOferty VALUES
+		(@numerZ,numerOferty,nazwaNoclegu);
 	END IF;
 	
 END //
