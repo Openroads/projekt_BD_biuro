@@ -62,7 +62,14 @@
 			"<td>"."<h3>".'Imię'."</h3>"."</td>".
 			"<td>"."<h3>".'Nazwisko'."</h3>"."</td>".
 			"<td>"."<h3>".'PESEL'."</h3>"."</td>".
-			"<td>"."<h3>".'Suma'."</h3>"."</td>"."</td>";
+			"<td>"."<h3>".'Suma'."</h3>"."</td>".
+			"<td>"."<h3>".'Data wyjazdu'."</h3>"."</td>".
+			"<td>"."<h3>".'Data powrotu'."</h3>"."</td>".
+			"<td>"."<h3>".'Miejsce wyjazdu'."</h3>"."</td>".
+			"<td>"."<h3>".'Cena '."</h3>"."</td>".
+			"<td>"."<h3>".'Nazwa Oferty'."</h3>"."</td>".
+			"<td>"."<h3>".'Skad'."</h3>"."</td>".
+			"<td>"."<h3>".'Dokad'."</h3>"."</td>"."</tr>";
 			while($zakupKlient = $resultOfKlient->fetch_array())
 			{
 				$contents = $contents."<tr>"."<td>".$zakupKlient['imie']."</td>"."<td>".$zakupKlient['nazwisko']."</td>"."<td>".$zakupKlient['pesel']."</td>"."<td>".$zakupKlient['suma']."</td>";
@@ -75,9 +82,23 @@
 				$resultOfTermin = $connect->query($zakupTerminQuery);
 				if( $resultOfTermin !=false)
 				{
+				
 					if($zakupTermin = $resultOfTermin->fetch_array())
 					{
-						$contents = $contents."<td>".$zakupTermin['dataWyjazdu']."</td>"."<td>".$zakupTermin['dataPowrotu']."</td>"."<td>".$zakupTermin['miejsce']."</td>"."<td>".$zakupTermin['cena']."</td>"."</tr>";
+						$contents = $contents."<td>".$zakupTermin['dataWyjazdu']."</td>"."<td>".$zakupTermin['dataPowrotu']."</td>"."<td>".$zakupTermin['miejsce']."</td>"."<td>".$zakupTermin['cena']."</td>";
+						$nrOferty =$zakupTermin['numerOferty'];
+						echo $nrOferty;
+						$ofertaQuery = "SELECT * from oferta where oferta.numerOferty = '$nrOferty'";
+						$resultOfOferta = $connect->query($ofertaQuery);
+						if($resultOfOferta !=false)
+						{
+							if($zakupionaOferta = $resultOfOferta->fetch_array())
+							{
+								$contents = $contents."<td>".$zakupionaOferta['nazwa']."</td>"."<td>".$zakupionaOferta['skad']."</td>"."<td>".$zakupionaOferta['dokad']."</td>"."</tr>";
+							}
+						}else{
+						echo"error";
+						}
 					}
 					
 				}
@@ -91,6 +112,7 @@
 
 			$resultOfKlient->free();
 			$resultOfTermin->free();
+			$resultOfOferta->free();
 		}
 
 		$connect->close();
