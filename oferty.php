@@ -28,7 +28,7 @@
         </div>
         <div id="new">
         <center>
-          
+ <h2>Dostępne oferty</h2>
 <?php
 	require_once "danebazy.php";
 
@@ -40,34 +40,32 @@
 	}
 	else{
 		$oferty_query ="SELECT * from oferta";
-		
 		$result = $connect->query($oferty_query);
-
 		if($result!=false)
 		{
-			$contents = "<table>";
+			$contents = "<table >";
 			$i=0;
+			$contents = $contents."<tr>"."<td>"."<center>"."<h3>".'  Numer  '."</h3>"."</center>"."</td>".
+			"<td>"."<center>"."<h3>".'  Nazwa  '."</h3>"."</center>"."</td>".
+			"<td>"."<center>"."<h3>".'  Skąd wyruszamy  '."</h3>"."</center>"."</td>".
+			"<td>"."<center>"."<h3>".'  Miejsce docelowe  '."</h3>"."</center>"."</td>".
+			"<td>"."<center>"."<h3>".'  Środek Transportu  '."</h3>"."</center>"."</td>".
+			"<td>"."<center>"."<h3>".'  Rodzaj  '."</h3>"."</center>"."</td>"."</tr>";
 			while($oferta = $result->fetch_array())
 			{
 				$i=$i+1;
-				$contents = $contents."<tr>"."<td>"."$i. "."</td>"."<td>".$oferta['nazwa']."</td>"."<td>".$oferta['skad']."<td>".$oferta['dokad'].
+				$contents = $contents."<tr>"."<td>"."<center>"."$i."."</center>"."</td>"."<td>".$oferta['nazwa']."</td>"."<td>".$oferta['skad']."<td>".$oferta['dokad'].
 				"</td>"."<td>".$oferta['srodekTransportu']."</td>"."<td>".$oferta['rodzaj']."</td>"."</tr>";
 
-
-				/*echo "<table><tr>".$oferta['nazwa']."Z ".
-				$oferta['skad']."	Do ".$oferta['dokad']."Srodek transportu ".$oferta['srodekTransportu']."Rodzaj oferty ".$oferta['rodzaj']."</table>";*/
-			}
-			$contents =$contents."</table>";
-			
+			/*echo "<table><tr>".$oferta['nazwa']."Z ".
+				$oferta['skad']."	Do ".$oferta['dokad']."Srodek transportu ".$oferta['srodekTransportu']."Rodzaj oferty ".$oferta['rodzaj']."			                </table>";*/
+		}
+			$contents =$contents."</table>";		
 			echo  $contents;
-
 			$result->free();
 		}
-
 		$connect->close();
 	}
-
-
 ?>
 </center>
 <div class="clearing">&nbsp;</div>
