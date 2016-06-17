@@ -52,9 +52,10 @@
 	}
 	else{
 		$zakupKlientQuery = "SELECT * from klient join zakup on zakup.pesel = klient.pesel where klient.pesel = '$pesel'";
-		$resultOf = $connect->query($zakupKlientQuery);
+		$resultOfKlient = $connect->query($zakupKlientQuery);
 
-		if( $resultOf !=false)
+		
+		if( $resultOfKlient !=false)
 		{
 			$contents = "<table>";
 			$contents = $contents."<tr>".
@@ -62,16 +63,34 @@
 			"<td>"."<h3>".'Nazwisko'."</h3>"."</td>".
 			"<td>"."<h3>".'PESEL'."</h3>"."</td>".
 			"<td>"."<h3>".'Suma'."</h3>"."</td>"."</td>";
-			while($zakupKlient = $resultOf->fetch_array())
+			while($zakupKlient = $resultOfKlient->fetch_array())
 			{
-				$contents = $contents."<tr>"."<td>".$zakupKlient['imie']."</td>"."<td>".$zakupKlient['nazwisko']."</td>"."<td>".$zakupKlient['pesel']."</td>".$zakupKlient['suma']."</td>"."</tr>";
+				$contents = $contents."<tr>"."<td>".$zakupKlient['imie']."</td>"."<td>".$zakupKlient['nazwisko']."</td>"."<td>".$zakupKlient['pesel']."</td>"."<td>".$zakupKlient['suma']."</td>";
+				//."</tr>";
+				
+				$nrZakupu = $zakupKlient['numerZakupu'];
+
+				$zakupTerminQuery = "SELECT * from zakupTermin join termin on zakupTermin.dataWyjazdu = termin.dataWyjazdu where zakupTermin.numerZakupu = '$nrZakupu'";
+				
+				$resultOfTermin = $connect->query($zakupTerminQuery);
+				if( $resultOfTermin !=false)
+				{
+					if($zakupTermin = $resultOfTermin->fetch_array())
+					{
+						$contents = $contents."<td>".$zakupTermin['dataWyjazdu']."</td>"."<td>".$zakupTermin['dataPowrotu']."</td>"."<td>".$zakupTermin['miejsce']."</td>"."<td>".$zakupTermin['cena']."</td>"."</tr>";
+					}
+					
+				}
+				
+				
 				
 			}
 			$contents =$contents."</table>";
 			
 			echo  $contents;
 
-			$resultOf->free();
+			$resultOfKlient->free();
+			$resultOfTermin->free();
 		}
 
 		$connect->close();
