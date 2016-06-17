@@ -1,3 +1,12 @@
+<?php
+	session_start();
+	if(isset($_SESSION['nrOferty'])) unset($_SESSION['nrOferty']);
+	if(isset($_SESSION['nazwa'])) unset($_SESSION['nazwa']);
+	if(isset($_SESSION['wyjazd'])) unset($_SESSION['wyjazd']);
+	if(isset($_SESSION['imie'])) unset($_SESSION['imie']);
+	if(isset($_SESSION['nazwisko'])) unset($_SESSION['nazwisko']);
+		
+?>
 <link href="style.css" rel="stylesheet" type="text/css">
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -42,8 +51,8 @@
 		echo $connect->connect_errno;
 	}
 	else{
-		$ofertyTerminowQuery = "SELECT * from klient join klient on zakup.pesel = klient.pesel";
-		$resultOf = $connect->query($ofertyTerminowQuery);
+		$zakupKlientQuery = "SELECT * from klient join zakup on zakup.pesel = klient.pesel where klient.pesel = '$pesel'";
+		$resultOf = $connect->query($zakupKlientQuery);
 
 		if( $resultOf !=false)
 		{
@@ -52,10 +61,10 @@
 			"<td>"."<h3>".'Imię'."</h3>"."</td>".
 			"<td>"."<h3>".'Nazwisko'."</h3>"."</td>".
 			"<td>"."<h3>".'PESEL'."</h3>"."</td>".
-			"<td>"."<h3>".'Suma'."</h3>"."</td>";
-			while($oferta = $resultOf->fetch_array())
+			"<td>"."<h3>".'Suma'."</h3>"."</td>"."</td>";
+			while($zakupKlient = $resultOf->fetch_array())
 			{
-				$contents = $contents."<tr>"."<td>".$klient['imie']."</td>"."<td>".$klient['nazwisko']."</td>"."<td>".$klient['pesel']."</tr>";
+				$contents = $contents."<tr>"."<td>".$zakupKlient['imie']."</td>"."<td>".$zakupKlient['nazwisko']."</td>"."<td>".$zakupKlient['pesel']."</td>".$zakupKlient['suma']."</td>"."</tr>";
 				
 			}
 			$contents =$contents."</table>";
