@@ -29,11 +29,18 @@
         <div id="new">
         <center>
         <form method="post">
-	<h3> KONTAKT						</h3>
-	Mariusz Grochowski</br>
-	Szymon Matysik</br>
-	Tomasz Mazur</br>
-	Dariusz Szyszlak</br>
+        <br />
+	<h2> KONTAKT						</h2>
+    <br />
+	<a href="https://www.facebook.com/mariusz.grochowski.39?fref=ts"><img src="images/Mariusz.jpg"></a><BR /> Mariusz Grochowski<br />
+    <br />
+	<a href="https://www.facebook.com/matysik.szymon"><img src="images/Szymon.jpg"></a><BR /> Szymon Matysik<br />
+    <br />
+    <a href="https://www.facebook.com/tomek.mazur.338?fref=ts"><img src="images/Tomek.jpg"></a><BR /> Tomasz Mazur<br />
+    <br />
+    <a href="https://www.facebook.com/dariusz.szyszlak?fref=ts"><img src="images/Dariusz.jpg"></a><BR /> Dariusz Szyszlak<br />
+    <br />
+    <br />
 	  <div class="clearing">&nbsp;</div>
       </div>
         <div id="footer">

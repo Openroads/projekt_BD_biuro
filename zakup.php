@@ -27,13 +27,14 @@
             </ul>
         </div>
         <div id="new">
-        <center>
-        <br />
- <h2>Dostępne oferty</h2>
+        </center>  
+       <br />
+<center> <h2>Twoje konto</h2> </center>
  <br />
+
 <?php
 	require_once "danebazy.php";
-
+	$pesel = $_SESSION['pesel'];
 	$connect = new mysqli($server_adress,$db_user,$db_password,$db_name);
 	$connect->query('SET NAMES utf8');
 	if($connect->errno)
@@ -41,38 +42,35 @@
 		echo $connect->connect_errno;
 	}
 	else{
-		$oferty_query ="SELECT * from oferta";
-		$result = $connect->query($oferty_query);
-		if($result!=false)
+		$ofertyTerminowQuery = "SELECT * from klient join klient on zakup.pesel = klient.pesel";
+		$resultOf = $connect->query($ofertyTerminowQuery);
+
+		if( $resultOf !=false)
 		{
 			$contents = "<table>";
-			
-			$i=0;
-			$contents = $contents."<tr>"."<td>"."<center>"."<h3>".'  Numer  '."</h3>"."</center>"."</td>".
-			"<td>"."<center>"."<h3>".'  Nazwa  '."</h3>"."</center>"."</td>".
-			"<td>"."<center>"."<h3>".'  Skąd  '."</h3>"."</center>"."</td>".
-			"<td>"."<center>"."<h3>".'  Dokąd  '."</h3>"."</center>"."</td>".
-			"<td>"."<center>"."<h3>".'  Środek Transportu  '."</h3>"."</center>"."</td>".
-			"<td>"."<center>"."<h3>".'  Rodzaj  '."</h3>"."</center>"."</td>"."</tr>";
-			while($oferta = $result->fetch_array())
+			$contents = $contents."<tr>".
+			"<td>"."<h3>".'Imię'."</h3>"."</td>".
+			"<td>"."<h3>".'Nazwisko'."</h3>"."</td>".
+			"<td>"."<h3>".'PESEL'."</h3>"."</td>".
+			"<td>"."<h3>".'Suma'."</h3>"."</td>";
+			while($oferta = $resultOf->fetch_array())
 			{
-				$i=$i+1;
-				$contents = $contents."<tr>"."<td>"."<center>"."$i."."</center>"."</td>"."<td>".$oferta['nazwa']."</td>"."<td>".$oferta['skad']."<td>".$oferta['dokad'].
-				"</td>"."<td>".$oferta['srodekTransportu']."</td>"."<td>".$oferta['rodzaj']."</td>"."</tr>";
-
-			/*echo "<table><tr>".$oferta['nazwa']."Z ".
-				$oferta['skad']."	Do ".$oferta['dokad']."Srodek transportu ".$oferta['srodekTransportu']."Rodzaj oferty ".$oferta['rodzaj']."			                </table>";*/
-		}
-			$contents =$contents."</table>";		
+				$contents = $contents."<tr>"."<td>".$klient['imie']."</td>"."<td>".$klient['nazwisko']."</td>"."<td>".$klient['pesel']."</tr>";
+				
+			}
+			$contents =$contents."</table>";
+			
 			echo  $contents;
-			$result->free();
+
+			$resultOf->free();
 		}
+
 		$connect->close();
 	}
-?>
-<br />
-<br />
-</center>
+
+
+?><br />
+<br  />
 <div class="clearing">&nbsp;</div>
       </div>
         <div id="footer">

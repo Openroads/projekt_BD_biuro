@@ -28,7 +28,9 @@
         </div>
         <div id="new">
         </center>  
-
+       <br />
+<center> <h2>Dostępne terminy</h2> </center>
+ <br />
 
 <?php
 	require_once "danebazy.php";
@@ -47,6 +49,14 @@
 		{
 			$contents = "<table>";
             $i=0;
+			$contents = $contents."<tr>".
+			"<td>"."<h3>".'Numer'."</h3>"."</td>".
+			"<td>"."<h3>".'Data Wyjazdu'."</h3>"."</td>".
+			"<td>"."<h3>".'Nazwa'."</h3>"."</td>".
+			"<td>"."<h3>".'Skąd'."</h3>"."</td>".
+			"<td>"."<h3>".'Dokąd'."</h3>"."</td>".
+			"<td>"."<h3>".'Środek Transportu'."</h3>"."</td>".
+			"<td>"."<h3>".'Rodzaj'."</h3>"."</td>"."</tr>";
 			while($oferta = $resultOf->fetch_array())
 			{
                 $i=$i+1;
@@ -65,7 +75,8 @@
 	}
 
 
-?><center>
+?><br />
+<br  />
 <div class="clearing">&nbsp;</div>
       </div>
         <div id="footer">
