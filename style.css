@@ -206,20 +206,18 @@ a:hover {
 table{
     border: 1px solid black;
 	column-width: 350px;
-	background: #9cb500;
+	background: #204060;
 	text-align: center;
 	
 }
 th{
 	border: 1px solid black;
-	column-width: 350px;
-	background: #520055;
-	
+	column-width: 350px;	
 	}
 td{
 	border: 1px solid black;
 	column-width: 350px;
-	background: #110000;
+	background: #2a323c;
 	font: bold;
 	}
 	
