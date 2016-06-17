@@ -70,7 +70,7 @@
 		$connect->close();
 		
 	} else if(isset($_POST['wybierz'])) {
-		echo "<br/>"."<h2>"."Wybierz termin :"."</h2>"."<br/>";
+		echo "<br/>"."<h2>"."Wybierz nocleg:"."</h2>"."<br/>";
 		$numerOferty = $_POST['wybierz'];
 		$_SESSION['nrOferty'] = $_POST['wybierz'];
 		$connect = new mysqli($server_adress,$db_user,$db_password,$db_name);
