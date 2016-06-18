@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>INSANE TRAVEL - KONTAKT</title>
+    <title>INSANE TRAVEL - ZALOGUJ</title>
     <meta charstet="utf-8"/>
     <meta name="keywords" content="biuro, podrozy" />
     <meta name="description" content="Zarezerwuj wyprawę życia już dziś!" />
@@ -33,19 +33,47 @@
         
         <div id="new">
             <center>
+            <br/>
+            <h2>ZALOGUJ</h2>
             <br />
-            <h2>KONTAKT</h2>
-            <br />
-            
-           <div id="new">
-           <br /><br />
-          	<a href="https://www.facebook.com/mariusz.grochowski.39?fref=ts"><img src="images/Mariusz.jpg"></a>
-            <a href="https://www.facebook.com/matysik.szymon"><img src="images/Szymon.jpg"></a>
-            <br />
-            <a href="https://www.facebook.com/tomek.mazur.338?fref=ts"><img src="images/Tomek.jpg"></a>
-            <a href="https://www.facebook.com/dariusz.szyszlak?fref=ts"><img src="images/Dariusz.jpg"></a>
-            <br />
-            <br />
+            <div id="new">
+        <center>
+        <form method="post">
+		<br /><h3> Wprowadź swoje dane</h3><br />
+	
+		Pesel</br>
+			<input type="text" value="<?php
+				if(isset($_POST['pesel']))
+					{
+						echo $_POST['pesel'];
+					}
+			?>" name="pesel" 	size=30>	</br>
+			<?php
+				if(isset($_SESSION['errPesel']))
+					{
+						echo '<div class="error">'.$_SESSION['errPesel'].'</div>'."</br>";
+						unset($_SESSION['errPesel']);
+					}
+			?>
+	
+		Nazwisko </br>
+			<input type="text" value="<?php
+				if(isset($_POST['nazwisko']))
+					{
+						echo $_POST['nazwisko'];
+					}
+			?>" name="nazwisko" 		size=30>	</br>
+			<?php
+				if(isset($_SESSION['errNazwisko']))
+					{
+						echo '<div class="error">'.$_SESSION['errNazwisko'].'</div>'."</br>";
+						unset($_SESSION['errNazwisko']);
+					}
+			?>
+            <br/>
+            <input type="submit" name="zal" value="    Zaloguj    ">	</br><br />
+            <br/>
+        
       </div>
       
       
