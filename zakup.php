@@ -8,15 +8,16 @@
 		
 ?>
 <link href="style.css" rel="stylesheet" type="text/css">
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+<!DOCTYPE html PUBLIC"-//W3C//DTD XHTML 1.0 Transitional//PL"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>INSANE TRAVEL</title>
-    <meta name="keywords" content="" />
-    <meta name="description" content="" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="language" content="en" />
+    <title>INSANE TRAVEL - KONTO</title>
+    <meta charstet="utf-8"/>
+    <meta name="keywords" content="biuro, podrozy" />
+    <meta name="description" content="Zarezerwuj wyprawę życia już dziś!" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+    <meta name="language" content="PL" />
     <link href="style.css" rel="stylesheet" type="text/css" />
 </head>
 
@@ -32,14 +33,21 @@
                 <li><a href="http://localhost/projekt_BD_biuro/oferty.php">OFERTY</a></li>
                 <li><a href="http://localhost/projekt_BD_biuro/terminy.php">TERMINY</a></li>
                 <li><a href="http://localhost/projekt_BD_biuro/dane.php">ZAREZERWUJ WYJAZD</a></li>
-            <li><a href="http://localhost/projekt_BD_biuro/kontakt.php">KONTAKT</a></li>
+                <li><a href="http://localhost/projekt_BD_biuro/kontakt.php">KONTAKT</a></li>
+                <li><a href="http://localhost/projekt_BD_biuro/konto.php">ZALOGUJ</a></li>
             </ul>
         </div>
+        
+        
+        
+        
         <div id="new">
-        </center>  
-       <br />
-<center> <h2>Twoje konto</h2> </center>
- <br />
+        	</center>  
+       		<br/>
+			<center> <h2>Twoje konto</h2> </center>
+ 			<br/>
+				<div id="new">
+                <br /><br />
 
 <?php
 	require_once "danebazy.php";
@@ -121,10 +129,13 @@
 
 ?><br />
 <br  />
-<div class="clearing">&nbsp;</div>
       </div>
+      
+      
+      
+      
         <div id="footer">
-            <p>Copyright &copy; GMMSZ, designed by <a href="http://www.painthfolio.wordpress.com" target="_blank">PAINTHING</a></p>
+            <p>Copyright &copy; GMMSZ, designed by <a href="http://www.facebook.com/szymon.matysik" target="_blank">PAINTHING</a></p>
         </div>
     </div>
 </body>

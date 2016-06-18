@@ -47,7 +47,9 @@
         
         
         <div id="new">
+        <br /><br /><br />
         <center>
+        	<div id="new">
 				<?php
                     require_once "danebazy.php";
                      
@@ -182,7 +184,9 @@
             <br />
             <br />
             </center>
+             <br /><br /><br />
             </div>
+           
 	</body>
 </html>
   
