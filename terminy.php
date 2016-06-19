@@ -84,9 +84,23 @@
 
 				?>
                 <br/>
-				<br/>           
+				<br/>    
+                       
      	 </div>
-         
+          <center>
+      <h2>Sprawdź pogodę na wakacje!</h2>  <div id="tp-widget-default" data-widget="default/polska/malopolskie/krakow">
+	<div id="tp-widget-default-beam">
+		<a id="tp-widget-default-flink" href="http://www.twojapogoda.pl/polska/malopolskie/krakow" target="_blank" title="Kraków - prognoza pogody" data-ga="?utm_source=3days&utm_medium=forecast&utm_campaign=widget-free">Pogoda Kraków</a><span> z serwisu</span>
+	</div>
+	<script type="text/javascript">
+		(function(d, t, i) {
+			if (d.getElementById(i)) return;
+			var f = d.getElementsByTagName(t)[0], js = d.createElement(t);
+			js.id = i; js.src = 'http://www.twojapogoda.pl/widget/main.js';
+			f.parentNode.appendChild(js);
+		}(document, 'script', 'tp-widget'));
+	</script></center>
+</div>
          
          
          
