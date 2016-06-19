@@ -31,8 +31,6 @@
         
         
         
-        
-        
         <div id="new">
         <center>
         <br />
@@ -81,10 +79,20 @@
             ?>
             <br />
             <br />
-            </center>
-      		
-            
-            
+         	<h2>dowiedz się więcej...</h2>
+      		<table>
+            <br/><br/><tr><td>
+            <a href="swiat.php"><img src="images/swiat.jpg"></a> </td><td>     
+            <a href="karaiby.php"><img src="images/karaiby.jpg"></a></td><td>   
+            <a href="kongo.php"><img src="images/kongo.jpg"></a></td></tr>
+            </table>
+            <table>
+            <br/><br/><tr><td>
+            <a href="wlochy.php"><img src="images/wlochy.jpg"></a></td><td>
+            <a href="korea.php"><img src="images/korea.jpg"></a></td><td>
+            <a href="kanion.php"><img src="images/kanion.jpg"></a></td></tr>
+            </table>
+               </center>
         <div id="footer">
             <p>Copyright &copy; GMMSZ, designed by <a href="http://www.facebook.com/szymon.matysik" target="_blank">PAINTHING</a></p>
         </div>
