@@ -1,3 +1,84 @@
+<?php
+	session_start();
+	if(isset($_POST['pesel']))
+	{
+		//flaga dla walidacji danych
+		$flag = true;
+
+		$pesel = $_POST['pesel'];
+		if(strlen($pesel) !=11)
+		{
+			$flag = false;
+			$_SESSION['errPesel']="Nieprawidłowa dlugość peselu";
+		}
+		if(!is_numeric($pesel))
+		{
+			$flag=false;
+			$_SESSION['errPesel']="Nieprawidłowy pesel - tylko liczby";
+		}
+		if(strlen($_POST['nazwisko'])<2)
+		{
+			$flag=false;
+			$_SESSION['errNazwisko']="Nazwisko jest za krótkie";
+		}
+		
+		if($flag==true)
+		{
+			require_once "danebazy.php";
+			
+			try
+			{
+					$connect = new mysqli($server_adress,$db_user,$db_password,$db_name);
+					mysqli_report(MYSQLI_REPORT_STRICT);
+					$connect->query('SET NAMES utf8');
+
+					if($connect->errno)
+					{
+							throw new Exception(mysqli_connect_errno());
+					}
+
+					else
+					{
+
+						$pesel 		= 	$_POST['pesel'];
+						$nazwisko 	= 	$_POST['nazwisko'];
+
+						$klient_query ="SELECT pesel,nazwisko from klient where pesel='$pesel'";
+						
+						$result = $connect->query($klient_query);
+
+						if($result!=false)
+						{
+							$klient = $result->fetch_array();
+							if($result->num_rows > 0 && $nazwisko ==$klient['nazwisko'])
+							{
+								//przekieruj na strone zakup php z danymi klienta
+								$_SESSION = $_POST;
+								header('Location: http://localhost/projekt_BD_biuro/zakup.php');
+								//exit;
+						
+							}else
+							{
+								$_SESSION['errBledneDane']="Podany pesel lub nazwisko są nie prawidłowe";
+							}
+							$result->free();
+						}else
+						{
+							throw new Exception($connect->error);
+						}
+
+						$connect->close();
+					}
+			}
+			catch(Exception $ex)
+			{
+				echo "Blad podczas połączenia z serwerem".$ex;
+			}
+		}
+	}
+
+	
+?>
 <link href="style.css" rel="stylesheet" type="text/css">
 <!DOCTYPE html PUBLIC"-//W3C//DTD XHTML 1.0 Transitional//PL"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -71,7 +152,15 @@
 					}
 			?>
             <br/>
+			<?php
+				if(isset($_SESSION['errBledneDane']))
+				{
+					echo '<div class="error">'.$_SESSION['errBledneDane'].'</div>'."</br>";
+					unset($_SESSION['errBledneDane']);
+				}
+			?>
             <input type="submit" name="zal" value="    Zaloguj    ">	</br><br />
+			
             <br/>
         
       </div>
