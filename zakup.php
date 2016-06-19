@@ -47,109 +47,90 @@
 			<center> <h2>Twoje konto</h2> </center>
  			<br/>
 				<div id="new">
-                <br/><br/>
+                <br /><br />
+
 <?php
 	require_once "danebazy.php";
-		$pesel = $_SESSION['pesel'];
-		$connect = new mysqli($server_adress,$db_user,$db_password,$db_name);
-		$connect->query('SET NAMES utf8');
+	$pesel = $_SESSION['pesel'];
+	$connect = new mysqli($server_adress,$db_user,$db_password,$db_name);
+	$connect->query('SET NAMES utf8');
 	if($connect->errno)
+	{
+		echo $connect->connect_errno;
+	}
+	else{
+		$zakupKlientQuery = "SELECT * from klient join zakup on zakup.pesel = klient.pesel where klient.pesel = '$pesel'";
+		$resultOfKlient = $connect->query($zakupKlientQuery);
+		
+		if( $resultOfKlient !=false)
 		{
-				echo $connect->connect_errno;
-		}
-	else
-		{
-				$zakupKlientQuery = "SELECT * from klient join zakup on zakup.pesel = klient.pesel where klient.pesel = '$pesel'";
-				$resultOfKlient = $connect->query($zakupKlientQuery);
+			$contents = "<table>";
+			$contents = $contents."<tr>".
+			"<td>"."<h3>".'Imię'."</h3>"."</td>".
+			"<td>"."<h3>".'Nazwisko'."</h3>"."</td>".
+			"<td>"."<h3>".'PESEL'."</h3>"."</td>"."</tr>";
 
-		if($resultOfKlient !=false)
+			if($zakupKlient=$resultOfKlient->fetch_array())
 			{
-				$contents = "<table>";
-				$contents = $contents."<tr>".
-				"<td>"."<h3>".'Imię'."</h3>"."</td>".
-				"<td>"."<h3>".'Nazwisko'."</h3>"."</td>".
-				"<td>"."<h3>".'PESEL'."</h3>"."</td>".
-				"<td>"."<h3>".'Do zapłaty'."</h3>"."</td>"."</tr>";
-			
-		while($zakupKlient = $resultOfKlient->fetch_array())
+				$contents = $contents."<tr>"."<td>".$zakupKlient['imie']."</td>"."<td>".$zakupKlient['nazwisko']."</td>"."<td>".$zakupKlient['pesel']."</td>"."<tr>"."</table>"."</br>"."</br>";
+			}
+
+
+			$contents=$contents."<table>"."<tr>"."<td>"."<h3>".'Suma'."</h3>"."</td>".
+			"<td>"."<h3>".'Data wyjazdu'."</h3>"."</td>".
+			"<td>"."<h3>".'Data powrotu'."</h3>"."</td>".
+			"<td>"."<h3>".'Miejsce wyjazdu'."</h3>"."</td>".
+			"<td>"."<h3>".'Cena '."</h3>"."</td>".
+			"<td>"."<h3>".'Nazwa Oferty'."</h3>"."</td>".
+			"<td>"."<h3>".'Skad'."</h3>"."</td>".
+			"<td>"."<h3>".'Dokad'."</h3>"."</td>".
+			"<td>"."<h3>".'Srodek Transportu'."</h3>"."</td>"."</tr>";
+			do
 			{
-				$contents = $contents."<tr>"."<td>".$zakupKlient['imie']."</td>".
-				"<td>".$zakupKlient['nazwisko']."</td>".
-				"<td>".$zakupKlient['pesel']."</td>".
-				"<td>".$zakupKlient['suma']."</td>";
+				$contents=$contents."<td>".$zakupKlient['suma']."</td>";
 				
 				$nrZakupu = $zakupKlient['numerZakupu'];
-				$zakupTerminQuery = "SELECT * from zakupTermin join termin on zakupTermin.dataWyjazdu = termin.dataWyjazdu where zakupTermin.numerZakupu = '$nrZakupu'";		
-			}	
-		}
-		$contents =$contents."</table>";
-			
-		if($connect->errno)
-		{
-			echo $connect->connect_errno;
-		}
-		else
-		{
-			$zakupKlientQuery = "SELECT * from klient join zakup on zakup.pesel = klient.pesel where klient.pesel = '$pesel'";
-			$resultOfKlient = $connect->query($zakupKlientQuery);
-		if( $resultOfKlient !=false)
-			{
-				$contents2 = "<table>";
-				$contents2 = $contents2."<tr>".
-				"<td>"."<h3>".'Data wyjazdu'."</h3>"."</td>".
-				"<td>"."<h3>".'Data powrotu'."</h3>"."</td>".
-				"<td>"."<h3>".'Miejsce docelowe'."</h3>"."</td>".
-				"<td>"."<h3>".'Cena bez noclegu'."</h3>"."</td>".
-				"<td>"."<h3>".'Nazwa Oferty'."</h3>"."</td>".
-				"<td>"."<h3>".'Skąd'."</h3>"."</td>".
-				"<td>"."<h3>".'Dokąd'."</h3>"."</td>"."</tr>";
-		while($zakupKlient = $resultOfKlient->fetch_array())
-			{
 				$zakupTerminQuery = "SELECT * from zakupTermin join termin on zakupTermin.dataWyjazdu = termin.dataWyjazdu where zakupTermin.numerZakupu = '$nrZakupu'";
+				
 				$resultOfTermin = $connect->query($zakupTerminQuery);
 				if( $resultOfTermin !=false)
 				{
+				
 					if($zakupTermin = $resultOfTermin->fetch_array())
+					{
+						$contents = $contents."<td>".$zakupTermin['dataWyjazdu']."</td>"."<td>".$zakupTermin['dataPowrotu']."</td>"."<td>".$zakupTermin['miejsce']."</td>"."<td>".$zakupTermin['cena']."</td>";
+						$nrOferty =$zakupTermin['numerOferty'];
+						$ofertaQuery = "SELECT * from oferta where oferta.numerOferty = '$nrOferty'";
+						$resultOfOferta = $connect->query($ofertaQuery);
+						if($resultOfOferta !=false)
 						{
-							$contents2 = $contents2."<td>".$zakupTermin['dataWyjazdu']."</td>".
-							"<td>".$zakupTermin['dataPowrotu']."</td>".
-							"<td>".$zakupTermin['miejsce']."</td>"."<td>".$zakupTermin['cena']."</td>";
-							$nrOferty =$zakupTermin['numerOferty'];
-							$ofertaQuery = "SELECT * from oferta where oferta.numerOferty = '$nrOferty'";
-							$resultOfOferta = $connect->query($ofertaQuery);
-							if($resultOfOferta !=false)
-								{
-									if($zakupionaOferta = $resultOfOferta->fetch_array())
-										{
-											$contents2 = $contents2."<td>".$zakupionaOferta['nazwa']."</td>"."<td>".$zakupionaOferta['skad']."</td>"."<td>".$zakupionaOferta['dokad']."</td>"."</tr>";
-										}
-								}
-								else
-								{
-									echo"error";
-								}
-								$contents2 =$contents2."</table>";
+							if($zakupionaOferta = $resultOfOferta->fetch_array())
+							{
+								$contents = $contents."<td>".$zakupionaOferta['nazwa']."</td>"."<td>".$zakupionaOferta['skad']."</td>"."<td>".$zakupionaOferta['dokad']."</td>"."<td>".$zakupionaOferta['srodekTransportu']."</td>"."</tr>";
+							}
+						}else{
+						echo"error";
 						}
-					
 					}
+					
 				}
 				
-			}
-			echo  "<center>"."<hname>".'Dane podróżnika'."</hname>"."</center>";
-			echo  $contents."<br/>"."<br/>"."<br/>";
-			echo  "<center>"."<hname>".'Wykupione podróże'."</hname>"."</center>";
-			echo  $contents2;
+				
+				
+			}while($zakupKlient = $resultOfKlient->fetch_array());
+
+			$contents =$contents."</table>";
+			
+			echo  $contents;
 			$resultOfKlient->free();
 			$resultOfTermin->free();
 			$resultOfOferta->free();
+		}
+		$connect->close();
 	}
-	$connect->close();
-}
-?>
-<br/>
-<br/>
-</div>
-      
+?><br/>
+<br  />
+      </div>
       
       
       
