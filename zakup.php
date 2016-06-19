@@ -98,7 +98,7 @@
 				$contents2 = $contents2."<tr>".
 				"<td>"."<h3>".'Data wyjazdu'."</h3>"."</td>".
 				"<td>"."<h3>".'Data powrotu'."</h3>"."</td>".
-				"<td>"."<h3>".'Miejsce wyjazdu'."</h3>"."</td>".
+				"<td>"."<h3>".'Miejsce docelowe'."</h3>"."</td>".
 				"<td>"."<h3>".'Cena bez noclegu'."</h3>"."</td>".
 				"<td>"."<h3>".'Nazwa Oferty'."</h3>"."</td>".
 				"<td>"."<h3>".'Skąd'."</h3>"."</td>".
