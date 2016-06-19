@@ -91,7 +91,7 @@
             <a href="wlochy.php"><img src="images/wlochy.jpg"></a></td><td>
             <a href="korea.php"><img src="images/korea.jpg"></a></td><td>
             <a href="kanion.php"><img src="images/kanion.jpg"></a></td></tr>
-            </table>
+            </table><br/><br/>
                </center>
         <div id="footer">
             <p>Copyright &copy; GMMSZ, designed by <a href="http://www.facebook.com/szymon.matysik" target="_blank">PAINTHING</a></p>
