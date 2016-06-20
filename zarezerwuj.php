@@ -14,7 +14,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>INSANE TRAVEL - O ZAREZERWUJ</title>
+    <title>INSANE TRAVEL - ZAREZERWUJ</title>
     <meta charstet="utf-8"/>
     <meta name="keywords" content="biuro, podrozy" />
     <meta name="description" content="Zarezerwuj wyprawę życia już dziś!" />
@@ -25,6 +25,7 @@
 
 <body>
     <div id="main">
+    	<div id="language"><center><script type="text/javascript" src="http://100widgets.com/js_data.php?id=142"></script></center></div>
         <div id="header">
             <h1>Insane Travel</h1>
         </div>
@@ -176,10 +177,7 @@
                              $connect->close();
                              echo $_POST['pesel'];
                              header("Location: zakup.php");
-                             }
-                                
-                    
-                    /*wyswietlanie najpierw terminow z ofertami.. po wybraniu terminu (z jedna dostenpna oferta) pojawienie sie dostepnych noclegow dla oferty*/
+                             }   
                 ?>
             <br />
             <br />
@@ -189,11 +187,12 @@
            
 	</body>
 </html>
-  
-
+         <BR />
+       </div>
        
-       
-        <div id="footer">
+       <br />
+     <div id="footer"><br /><br />       
+        	<center><script type="text/javascript" src="http://100widgets.com/js_data.php?id=255"></script></center>
             <p>Copyright &copy; GMMSZ, designed by <a href="http://www.facebook.com/szymon.matysik" target="_blank">PAINTHING</a></p>
         </div>
     </div>

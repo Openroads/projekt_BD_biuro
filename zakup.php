@@ -23,6 +23,7 @@
 
 <body>
     <div id="main">
+    <div id="language"><center><script type="text/javascript" src="http://100widgets.com/js_data.php?id=142"></script></center></div>
         <div id="header">
             <h1>Insane Travel</h1>
         </div>
@@ -101,7 +102,10 @@
 				
 					if($zakupTermin = $resultOfTermin->fetch_array())
 					{
-						$contents = $contents."<td>".$zakupTermin['dataWyjazdu']."</td>"."<td>".$zakupTermin['dataPowrotu']."</td>"."<td>".$zakupTermin['miejsce']."</td>"."<td>".$zakupTermin['cena']." zł"."</td>";
+						$contents = $contents."<td>".$zakupTermin['dataWyjazdu']."</td>".
+						"<td>".$zakupTermin['dataPowrotu']."</td>".
+						"<td>".$zakupTermin['miejsce']."</td>".
+						"<td>".$zakupTermin['cena']." zł"."</td>";
 						$nrOferty =$zakupTermin['numerOferty'];
 						$ofertaQuery = "SELECT * from oferta where oferta.numerOferty = '$nrOferty'";
 						$resultOfOferta = $connect->query($ofertaQuery);
@@ -109,7 +113,10 @@
 						{
 							if($zakupionaOferta = $resultOfOferta->fetch_array())
 							{
-								$contents = $contents."<td>".$zakupionaOferta['nazwa']."</td>"."<td>".$zakupionaOferta['skad']."</td>"."<td>".$zakupionaOferta['dokad']."</td>"."<td>".$zakupionaOferta['srodekTransportu']."</td>";
+								$contents = $contents."<td>".$zakupionaOferta['nazwa']."</td>".
+								"<td>".$zakupionaOferta['skad']."</td>".
+								"<td>".$zakupionaOferta['dokad']."</td>".
+								"<td>".$zakupionaOferta['srodekTransportu']."</td>";
 							}
 						}else{
 						echo"error";
@@ -127,7 +134,9 @@
 				
 					if($zakupNocleg = $resultOfNocleg->fetch_array())
 					{
-						$contents=$contents."<td>".$zakupNocleg['nazwa']."</td>"."<td>".$zakupNocleg['rodzaj']."</td>"."<td>".$zakupNocleg['cena']." zł"."</td>"."</tr>";
+						$contents=$contents."<td>".$zakupNocleg['nazwa']."</td>".
+						"<td>".$zakupNocleg['rodzaj']."</td>".
+						"<td>".$zakupNocleg['cena']." zł"."</td>"."</tr>";
 					}
 				}
 				
@@ -137,7 +146,7 @@
 
 			$contents =$contents."</table>";
 			
-			echo  $contents;
+			echo  "<center>".$contents."</center>";
 			$resultOfKlient->free();
 			$resultOfTermin->free();
 			$resultOfOferta->free();
@@ -147,13 +156,15 @@
 	}
 ?>
 <br/>
-<br  />
-      </div>
-      
-      
-      
-      
-        <div id="footer">
+<br/>
+</div>
+</div>
+<br />
+
+
+
+     <div id="footer"><br /><br />       
+        	<center><script type="text/javascript" src="http://100widgets.com/js_data.php?id=255"></script></center>
             <p>Copyright &copy; GMMSZ, designed by <a href="http://www.facebook.com/szymon.matysik" target="_blank">PAINTHING</a></p>
         </div>
     </div>

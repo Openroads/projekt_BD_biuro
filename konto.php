@@ -95,6 +95,7 @@
 
 <body>
     <div id="main">
+    <div id="language"><center><script type="text/javascript" src="http://100widgets.com/js_data.php?id=142"></script></center></div>
         <div id="header">
             <h1>Insane Travel</h1>
         </div>
@@ -164,13 +165,19 @@
             <br/>
         
       </div>
-      
-      
-      
-      
-        <div id="footer">
-            <p>Copyright &copy; GMMSZ, designed by <a href="http://www.FACEBOOK.COM/SZYMON.MATYSIK" target="_blank">PAINTHING</a></p>
+      <BR />
+      <BR />
+  </div>
+ <br />
+ 
+ 
+ 
+ 
+     <div id="footer"><br /><br />       
+        	<center><script type="text/javascript" src="http://100widgets.com/js_data.php?id=255"></script></center>
+            <p>Copyright &copy; GMMSZ, designed by <a href="http://www.facebook.com/szymon.matysik" target="_blank">PAINTHING</a></p>
         </div>
+        
     </div>
 </body>
 </html>

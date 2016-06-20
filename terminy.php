@@ -14,6 +14,7 @@
 
 <body>
     <div id="main">
+    <div id="language"><center><script type="text/javascript" src="http://100widgets.com/js_data.php?id=142"></script></center></div>
         <div id="header">
             <h1>Insane Travel</h1>
         </div>
@@ -83,14 +84,16 @@
             
 
 				?>
-                <br/>
-				<br/>    
+<br/>
+<br/>    
                        
      	 </div>
-          <center>
-      <h2>Sprawdź pogodę na wakacje!</h2>  <div id="tp-widget-default" data-widget="default/polska/malopolskie/krakow">
+          <center><br />
+      <h2>Sprawdź pogodę na wakacje!</h2>
+      
+     <div id="tp-widget-default" data-widget="default/polska/malopolskie/krakow">
 	<div id="tp-widget-default-beam">
-		<a id="tp-widget-default-flink" href="http://www.twojapogoda.pl/polska/malopolskie/krakow" target="_blank" title="Kraków - prognoza pogody" data-ga="?utm_source=3days&utm_medium=forecast&utm_campaign=widget-free">Pogoda Kraków</a><span> z serwisu</span>
+		<a id="tp-widget-default-flink" href="http://www.twojapogoda.pl/polska/malopolskie/krakow" target="_blank" title="Kraków - prognoza pogody" data-ga=			            "?utm_source=3days&utm_medium=forecast&utm_campaign=widget-free">Pogoda Kraków</a><span> z serwisu</span>
 	</div>
 	<script type="text/javascript">
 		(function(d, t, i) {
@@ -99,12 +102,15 @@
 			js.id = i; js.src = 'http://www.twojapogoda.pl/widget/main.js';
 			f.parentNode.appendChild(js);
 		}(document, 'script', 'tp-widget'));
-	</script></center>
+	</script></center><br />
 </div>
          
          
          
-        <div id="footer">
+          
+       <br />
+     <div id="footer"><br /><br />       
+        	<center><script type="text/javascript" src="http://100widgets.com/js_data.php?id=255"></script></center>
             <p>Copyright &copy; GMMSZ, designed by <a href="http://www.facebook.com/szymon.matysik" target="_blank">PAINTHING</a></p>
         </div>
     </div>
