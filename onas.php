@@ -34,8 +34,13 @@
         
         <div id="new">
                 <center>
-                <h3>O Nas</h3>
+                <br/><br/>         
+                <h2>O Nas</h2>
+                <br />
+                <p>Jaki jest koń, każdy widzi... Każde biuro oferuje coś ekstra, nasze biuro oferuje coś jeszcze lepszego!<br /> Myślałeś lub myślałaś, że to co może Cię spotkać w innym biurze to cudowne wakacje? <br /> Myliłeś się! To co tam zaznasz to jedynie korzuch na mleku! U nas dostaniesz najświeższe mleko prosto od krowy wypasanej na polach Korei Północnej<br /> bądź Rosyjskich stepach!<br />
+            </p>    <br /><br />
                 <div id="new">
+                <br /><br />
                 <b>Przedsiębiorstwa turystyczne</b>
                 – wyodrębnione zespoły ludzi wykonujących czynności w zakresie zaspokojenia potrzeb turystów i samodzielnie podejmujących decyzje strategiczne i taktyczne, rozstrzygające o 			                skuteczności działania. Są to jednostki wyposażone w środki materialne i finansowe oraz podporządkowane określonej organizacji wewnętrznej. Ich powstanie i rozwój należy wiązać z                żywiołowym rozwojem ruchu 
                      <a href="/wiki/Turystyka" title="Turystyka">turystycznego</a>
@@ -44,6 +49,8 @@
                  , postępu technicznego i organizacyjnego sprzyjającego wzrostowi 
                      <a href="/wiki/Wydajno%C5%9B%C4%87_pracy" title="Wydajność pracy">wydajności pracy</a>
                  i stopniowemu skracaniu czasu pracy, ustawowego wprowadzenia płatnych urlopów i wzrostu dochodów ludności, doszło do zmian w strukturze konsumpcji ludności, których wyrazem było                  ujawnienie się nowych potrzeb w zakresie wypoczynku i turystyki. Intensywność zainteresowania oraz możliwości finansowe potencjalnych turystów spowodowały powstanie przedsiębiorstw                  turystycznych, które zajęły się zaspokajaniem nowo powstałych potrzeb, polegającym na tworzeniu ofert dotyczących turystyki i wypoczynku.
+                 <br />
+                 <br />
                  <center> <IMG SRC="images/wakacje.jpg" /></center>
                  <br/>
                  <br/>
