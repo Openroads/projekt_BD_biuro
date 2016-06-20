@@ -80,14 +80,17 @@
 			"<td>"."<h3>".'Data wyjazdu'."</h3>"."</td>".
 			"<td>"."<h3>".'Data powrotu'."</h3>"."</td>".
 			"<td>"."<h3>".'Miejsce wyjazdu'."</h3>"."</td>".
-			"<td>"."<h3>".'Cena '."</h3>"."</td>".
+			"<td>"."<h3>".'Cena terminu'."</h3>"."</td>".
 			"<td>"."<h3>".'Nazwa Oferty'."</h3>"."</td>".
 			"<td>"."<h3>".'Skad'."</h3>"."</td>".
 			"<td>"."<h3>".'Dokad'."</h3>"."</td>".
-			"<td>"."<h3>".'Srodek Transportu'."</h3>"."</td>"."</tr>";
+			"<td>"."<h3>".'Srodek Transportu'."</h3>"."</td>".
+			"<td>"."<h3>".'Nazwa noclegu'."</h3>"."</td>".
+			"<td>"."<h3>".'Rodzaj'."</h3>"."</td>".
+			"<td>"."<h3>".'Cena noclegu'."</h3>"."</td>"."</tr>";
 			do
 			{
-				$contents=$contents."<td>".$zakupKlient['suma']."</td>";
+				$contents=$contents."<td>".$zakupKlient['suma']." zł"."</td>";
 				
 				$nrZakupu = $zakupKlient['numerZakupu'];
 				$zakupTerminQuery = "SELECT * from zakupTermin join termin on zakupTermin.dataWyjazdu = termin.dataWyjazdu where zakupTermin.numerZakupu = '$nrZakupu'";
@@ -98,7 +101,7 @@
 				
 					if($zakupTermin = $resultOfTermin->fetch_array())
 					{
-						$contents = $contents."<td>".$zakupTermin['dataWyjazdu']."</td>"."<td>".$zakupTermin['dataPowrotu']."</td>"."<td>".$zakupTermin['miejsce']."</td>"."<td>".$zakupTermin['cena']."</td>";
+						$contents = $contents."<td>".$zakupTermin['dataWyjazdu']."</td>"."<td>".$zakupTermin['dataPowrotu']."</td>"."<td>".$zakupTermin['miejsce']."</td>"."<td>".$zakupTermin['cena']." zł"."</td>";
 						$nrOferty =$zakupTermin['numerOferty'];
 						$ofertaQuery = "SELECT * from oferta where oferta.numerOferty = '$nrOferty'";
 						$resultOfOferta = $connect->query($ofertaQuery);
@@ -106,13 +109,26 @@
 						{
 							if($zakupionaOferta = $resultOfOferta->fetch_array())
 							{
-								$contents = $contents."<td>".$zakupionaOferta['nazwa']."</td>"."<td>".$zakupionaOferta['skad']."</td>"."<td>".$zakupionaOferta['dokad']."</td>"."<td>".$zakupionaOferta['srodekTransportu']."</td>"."</tr>";
+								$contents = $contents."<td>".$zakupionaOferta['nazwa']."</td>"."<td>".$zakupionaOferta['skad']."</td>"."<td>".$zakupionaOferta['dokad']."</td>"."<td>".$zakupionaOferta['srodekTransportu']."</td>";
 							}
 						}else{
 						echo"error";
 						}
 					}
-					
+				
+				}
+
+				$zakupTypOfertyQuery="SELECT nocleg.nazwa,nocleg.rodzaj,nocleg.cena from zakupTypOferty join nocleg on zakupTypOferty.nazwa=nocleg.nazwa where zakupTypOferty.numerZakupu = '$nrZakupu'";
+
+				$resultOfNocleg=$connect->query($zakupTypOfertyQuery); 
+
+				if($resultOfNocleg !=false)
+				{
+				
+					if($zakupNocleg = $resultOfNocleg->fetch_array())
+					{
+						$contents=$contents."<td>".$zakupNocleg['nazwa']."</td>"."<td>".$zakupNocleg['rodzaj']."</td>"."<td>".$zakupNocleg['cena']." zł"."</td>"."</tr>";
+					}
 				}
 				
 				
@@ -125,10 +141,12 @@
 			$resultOfKlient->free();
 			$resultOfTermin->free();
 			$resultOfOferta->free();
+			$resultOfNocleg->free();
 		}
 		$connect->close();
 	}
-?><br/>
+?>
+<br/>
 <br  />
       </div>
       
