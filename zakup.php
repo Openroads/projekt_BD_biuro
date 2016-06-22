@@ -102,8 +102,20 @@
 				
 					if($zakupTermin = $resultOfTermin->fetch_array())
 					{
-						$contents = $contents."<td>".$zakupTermin['dataWyjazdu']."</td>".
-						"<td>".$zakupTermin['dataPowrotu']."</td>".
+						$dataWyjazdu = $zakupTermin['dataWyjazdu'];
+						//$contents = $contents."<td>".$dataWyjazdu;
+						
+						if($dataWyjazdu > date("Y-m-d"))
+						{
+								 $contents=$contents."<td>"."<font color='green'>$dataWyjazdu</font>"."</br>"."<form method='post'> <input type='submit' name='anuluj' value='Anuluj' /></form>";
+								 
+						}
+						else
+						{
+							 $contents=$contents."<td>"."<font color='red'>$dataWyjazdu</font>"."</br>"."Odbyla sie";
+						}
+						
+						$contents=$contents."</td>"."<td>".$zakupTermin['dataPowrotu']."</td>".
 						"<td>".$zakupTermin['miejsce']."</td>".
 						"<td>".$zakupTermin['cena']." zł"."</td>";
 						$nrOferty =$zakupTermin['numerOferty'];
