@@ -55,6 +55,7 @@
                     require_once "danebazy.php";
                      
                      $pesel = $_SESSION['pesel'];
+					 $dataWyj;
                      
                     if (!isset($_POST['wybierz']) && (!isset($_POST['wybierz2']))) {
                         $connect = new mysqli($server_adress,$db_user,$db_password,$db_name);
@@ -72,14 +73,16 @@
                             "<td>"."<h3>".'Data Powrotu'."</h3>"."</td>".
                             "<td>"."<h3>".'Miejsce'."</h3>"."</td>".
                             "<td>"."<h3>".'Cena'."</h3>"."</td>".
-                            "<td>"."<h2>".'Wybierz'."</h2>"."</td>";
+                            "<td>"."<h2>".'numerOferty'."</h2>"."</td>".
+							"<td>"."<h2>".'Wybierz'."</h2>"."</td>";
                             while($termin = $resultOf->fetch_array()) {
                                 $contents = $contents."<tr>".
 								"<td>".$termin['dataWyjazdu']."</td>".
 								"<td>".$termin['dataPowrotu']."</td>".
 								"<td>".$termin['miejsce']."</td>".
 								"<td>".$termin['cena']."</td>".
-								"<td>"."<form action = \"zarezerwuj.php\" method= \"POST\"><input type = \"submit\" name=\"wybierz\" value=\"".$termin['numerOferty']."\" label=\"wybierz\"></form>".
+								"<td>".$termin['numerOferty']."</td>".
+								"<td>"."<form action = \"zarezerwuj.php\" method= \"POST\"><input type = \"submit\" name=\"wybierz\" value=\"".$termin['dataWyjazdu']."\" label=\"wybierz\"></form>".
 								"</td>"."</tr>";		
                             }
                             $contents =$contents."</table>"."<br/>"."<br/>";;	
@@ -90,8 +93,19 @@
                         
                     } else if(isset($_POST['wybierz'])) {
                         echo "<br/>"."<h2>"."Wybierz nocleg:"."</h2>"."<br/>";
-                        $numerOferty = $_POST['wybierz'];
-                        $_SESSION['nrOferty'] = $_POST['wybierz'];
+						global $dataWyj;
+                        $dataWyj = $_POST['wybierz'];
+                        $_SESSION['dataWyj'] = $_POST['wybierz'];
+						$connect2 = new mysqli($server_adress,$db_user,$db_password,$db_name);
+                        $connect2->query('SET NAMES utf8');
+                        $resultOf2 = $connect2->query("SELECT numerOferty FROM termin WHERE dataWyjazdu='$dataWyj'");
+						if($resultOf2 != false){
+							while($numery=$resultOf2->fetch_array()){
+								$_SESSION['nrOferty']=$numery['numerOferty'];
+								}
+							}
+							
+							$numerOferty=$_SESSION['nrOferty'];
                         $connect = new mysqli($server_adress,$db_user,$db_password,$db_name);
                         $connect->query('SET NAMES utf8');
                         $resultOf = $connect->query("SELECT * FROM typOferty, nocleg WHERE typOferty.nazwa = nocleg.nazwa and typOferty.numerOferty ='$numerOferty'");
@@ -144,8 +158,8 @@
                             $result1->free();
                         
                         }
-                    
-                        $result2 = $connect->query("SELECT * FROM termin WHERE numerOferty= '$numerOferty'");
+                    	$dataWyj=$_SESSION['dataWyj'];
+                        $result2 = $connect->query("SELECT * FROM termin WHERE dataWyjazdu= '$dataWyj'");
                         if( $result2 !=false) {
                             $contents = "<table>";
                             while($termin= $result2->fetch_array()) {
@@ -171,14 +185,15 @@
                      if(isset($_POST['Zatwierdź'])){
                          $connect = new mysqli($server_adress,$db_user,$db_password,$db_name);
                         $connect->query('SET NAMES utf8');
-                             global $numerOferty; global $nazwaN; global $dataWyj; global $pesel;
-                             echo "$numerOferty\n"; echo "$nazwaN\n"; echo "$dataWyj\n"; echo "$pesel\n";
-                             $result=$connect->query("CALL dokonaj_zakupu('$numerOferty','$nazwaN','$dataWyj','$pesel')");  
+                            global $numerOferty; global $nazwaN; global $dataWyj; global $pesel;
+                             $result=$connect->query("CALL dokonaj_zakupu('$numerOferty','$nazwaN','$dataWyj','$pesel')");
                              $connect->close();
-                             echo $_POST['pesel'];
-                             header("Location: zakup.php");
+			echo "<h2>".'Dokup jeszcze jeden termin lub kliknij Do kasy aby przejść dalej'."</h2>";
+			echo "<hlink>"."<br />"."<a href='http://localhost/projekt_BD_biuro/zakup.php' target='_self'>Do Kasy</a>"."</hlink>";			 
                              }   
                 ?>
+              
+              
             <br />
             <br />
             </center>

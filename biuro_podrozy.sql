@@ -30,7 +30,7 @@ CREATE TABLE klient (
 CREATE TABLE nocleg(
 	nazwa varchar(30) NOT NULL,
 	rodzaj ENUM ("Willa","Hotel","Hostel") NOT NULL,
-	wyzywienie ENUM ("Bez wyżywienia","Sniadanie","Sniadanie + obiad") NOT NULL,	
+	wyzywienie ENUM ("Bez wyżywienia","Śniadanie","Śniadanie + obiad") NOT NULL,	
 	cena decimal(10,2) NOT NULL, 
 	adres varchar(25) NOT NULL,
 	PRIMARY KEY(nazwa)
@@ -43,8 +43,8 @@ CREATE TABLE oferta(
 	nazwa varchar(100) NOT NULL,
 	skad varchar(10) NOT NULL,
 	dokad varchar(10) NOT NULL,
-	srodekTransportu  ENUM ("Autobus","Pociąg","Samolot","Kajak") NOT NULL,
-	rodzaj ENUM('Normal','Bed & Breakfast','All Inclusive') NOT NULL,
+	srodekTransportu  ENUM ("Autobus","Pociąg","Samolot","Prom") NOT NULL,
+	rodzaj ENUM('Normal','Bed & Breakfast','All Inclusive','Full Board') NOT NULL,
 
 	PRIMARY KEY(numerOferty)
 );
@@ -132,18 +132,24 @@ INSERT INTO klient (pesel,imie,nazwisko,adres) VALUES
 
 -- Dane dla tabeli nocleg --
 INSERT INTO nocleg(nazwa,rodzaj,wyzywienie,cena,adres) VALUES
-("Hotel pod Budą","Hotel","Sniadanie",200.30,"Kraków ul.Pradnicka 54"),
+("Hotel pod Budą","Hotel","Śniadanie",200.30,"Kraków ul.Pradnicka 54"),
 ("Domek Janka","Hostel","Bez wyżywienia",150.50,"Kraków ul.Pradnicka 54"),
-("Exclusive hotel","Hotel","Sniadanie",450.50,"Rzym ul.Peccioli 18"),
-("Dream in Rzym","Willa","Sniadanie",550.50,"Rzym ul.Wiccioli 28"),
-("Willa maks","Willa","Sniadanie + obiad",150.50,"Tokio Huaguwai 224"),
-("작은 오두막 은 오 은오","Hotel","Sniadanie",490.50,"Pjongjang ul.Besung 24"),
-("작은 오두막 은 작은","Hotel","Sniadanie + obiad",590.50,"Pjongjang ul.Tung 124"),
-("작은 오두막","Hostel","Bez wyżywienia",190.50,"Pjongjang ul.Aessong 14");
+("Exclusive hotel","Hotel","Śniadanie",450.50,"Rzym ul.Peccioli 18"),
+("Dream in Rzym","Willa","Śniadanie",550.50,"Rzym ul.Wiccioli 28"),
+("Willa maks","Willa","Śniadanie + obiad",150.50,"Tokio Huaguwai 224"),
+("작은 오두막 은 오 은오","Hotel","Śniadanie",490.50,"Pjongjang ul.Besung 24"),
+("작은 오두막 은 작은","Hotel","Śniadanie + obiad",590.50,"Pjongjang ul.Tung 124"),
+("작은 오두막","Hostel","Bez wyżywienia",190.50,"Pjongjang ul.Aessong 14"),
+("Bonk","Hostel","Śniadanie + obiad", 279.99, "Kinszasa ul.Bibangi 43"),
+("Szaluzalu", "Willa", "Bez wyżywienia", 599.99, "Kinszasa ul.Kokoli 79"),
+("Soho Grand Hotel", "Hotel", "Śniadanie + obiad", 300.00, "Nowy Jork ul.Broadway 1"),
+("Sheraton", "Hostel", "Bez wyżywienia", 199.99, "Nowy Jork ul.Green 5"),
+("El Cabildo", "Hotel", "Bez wyżywienia", 100.00, "Karaiby ul.Libertad 10");
+
 
 -- Dane dla tabeli oferta --
 INSERT INTO oferta(numerOferty,nazwa,skad,dokad,srodekTransportu,rodzaj) VALUES
-(0001, "Wycieczka dookoła Świata", "Kraków", "Kraków", "Kajak", "Full Board"),
+(0001, "Wycieczka dookoła Świata", "Kraków", "Kraków", "Prom", "Full Board"),
 (0002, "Gorące Karaiby - Spełnienie marzeń...", "Gdańsk", "Karaiby", "Samolot", "All Inclusive"),
 (0003, "Tropikalne Kongo - Postaw stopę w świecie wiecznej zieleni.", "Warszawa", "Kinszasa", "Pociąg", "All Inclusive"),
 (0004, "Antyczne Włochy - Tropem wielkich podbojów antycznej Europy.", "Poznań", "Rzym", "Autobus", "Bed & Breakfast"),
@@ -160,17 +166,30 @@ INSERT INTO termin (dataWyjazdu, dataPowrotu, miejsce, cena, numerOferty) VALUES
 ('2016-07-11', '2016-07-21', "Karaiby", 660.45, 0002),
 ('2016-08-04', '2016-08-18', "Karaiby", 750.80, 0002),
 ('2016-08-24', '2016-08-31', "Nowy Jork", 680.80, 0006),
-('2016-09-02', '2016-09-09', "Nowy Jork", 613.50, 0006);
+('2016-09-02', '2016-09-09', "Nowy Jork", 613.50, 0006),
+('2016-07-07', '2016-07-24', "Kinszasa", 599.99, 0003),
+('2016-09-01', '2016-09-15', "Kinszasa", 1200.00, 0003),
+('2017-02-02', '2017-02-13', "Karaiby", 459.90, 0002),
+('2016-07-06', '2016-09-12', "Kraków", 1625.99, 0006),
+('2016-09-09', '2016-09-19', "Nowy Jork", 659.99, 0006);
+
 
 --	Dane dla tebli typOferty --
 
 INSERT INTO typOferty (numerOferty,nazwa) VALUES
 (0001,"Hotel pod Budą"),
+(0001,"Domek Janka"),
+(0002,"El Cabildo"),
+(0003,"Szaluzalu"),
+(0003,"Bonk"),
 (0004,"Exclusive hotel"),
 (0004,"Dream in Rzym"),
 (0005,"작은 오두막 은 작은"),
 (0005,"작은 오두막 은 오 은오"),
-(0005,"작은 오두막"); 
+(0005,"작은 오두막"),
+(0006,"Soho Grand Hotel"),
+(0006,"Sheraton");
+
 
 -- Procedura obslugujaca dokonanie zakupu wycieczki przez klienta -- 
 

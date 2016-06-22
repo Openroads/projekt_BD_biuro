@@ -41,6 +41,11 @@ h2 {
     font: normal 24px "Impact", Arial, Helvetica, sans-serif;
     color: #81C226;
 }
+hlink {
+    font: normal 40px "Impact", Arial, Helvetica, sans-serif;
+    color: #81C226;
+}
+
 h3 {
     font: normal 20px "Impact", Arial, Helvetica, sans-serif;
     color: #82B226;
@@ -53,7 +58,7 @@ p {
 }
 
 a {
-	font: normal 16px "Impact", Arial, Helvetica, sans-serif;
+	font: normal 20px "Impact", Arial, Helvetica, sans-serif;
     text-decoration: none;
     color: #86B226;
 	-webkit-text-stroke-width: 1px;
